@@ -5,7 +5,7 @@ import Header from '../../components/header/header';
 
 function GuitarPage(): JSX.Element {
   return (
-    <>
+    <div>
       <Header />
       <div className="container">
         <h1 className="page-content__title title title--bigger">Товар</h1>
@@ -13,7 +13,7 @@ function GuitarPage(): JSX.Element {
         <GuitarCard/>
       </div>
       <Footer />
-    </>
+    </div>
   );
 }
 export default GuitarPage;
