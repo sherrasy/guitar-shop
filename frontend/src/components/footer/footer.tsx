@@ -1,25 +1,42 @@
+import { Link, useLocation } from 'react-router-dom';
+import { AppRoute } from '../../utils/constant';
+
 function Footer(): JSX.Element {
+  const location = useLocation();
+  const isMain = location.pathname === AppRoute.Login;
   return (
     <div>
       <footer className="footer">
         <div className="container">
           <div className="footer__container">
             <div className="footer__logo-wrapper">
-              <a className="footer__logo logo" href="main.html">
-                <img
-                  className="logo__img"
-                  width="70"
-                  height="70"
-                  src="./img/svg/logo.svg"
-                  alt="Логотип"
-                />
-              </a>
+              {isMain ? (
+                <span className="footer__logo logo">
+                  <img
+                    className="logo__img"
+                    width="70"
+                    height="70"
+                    src="./img/svg/logo.svg"
+                    alt="Логотип"
+                  />
+                </span>
+              ) : (
+                <Link className="footer__logo logo" to={AppRoute.Login}>
+                  <img
+                    className="logo__img"
+                    width="70"
+                    height="70"
+                    src="./img/svg/logo.svg"
+                    alt="Логотип"
+                  />
+                </Link>
+              )}
               <div className="socials footer__socials">
                 <ul className="socials__list">
                   <li className="socials-item">
-                    <a
+                    <Link
                       className="socials__link"
-                      href="https://www.skype.com/"
+                      to="https://www.skype.com/"
                       aria-label="Мы в skype"
                     >
                       <svg
@@ -30,12 +47,12 @@ function Footer(): JSX.Element {
                       >
                         <use xlinkHref="#icon-skype"></use>
                       </svg>
-                    </a>
+                    </Link>
                   </li>
                   <li className="socials-item">
-                    <a
+                    <Link
                       className="socials__link"
-                      href="https://www.vsco.co/"
+                      to="https://www.vsco.co/"
                       aria-label="Мы в vsco"
                     >
                       <svg
@@ -46,12 +63,12 @@ function Footer(): JSX.Element {
                       >
                         <use xlinkHref="#icon-vsco"></use>
                       </svg>
-                    </a>
+                    </Link>
                   </li>
                   <li className="socials-item">
-                    <a
+                    <Link
                       className="socials__link"
-                      href="https://www.pinterest.com/"
+                      to="https://www.pinterest.com/"
                       aria-label="Мы в pinterest"
                     >
                       <svg
@@ -62,7 +79,7 @@ function Footer(): JSX.Element {
                       >
                         <use xlinkHref="#icon-pinterest"></use>
                       </svg>
-                    </a>
+                    </Link>
                   </li>
                 </ul>
               </div>
@@ -86,29 +103,29 @@ function Footer(): JSX.Element {
               </h2>
               <ul className="footer__nav-list">
                 <li className="footer__nav-list-item">
-                  <a className="link footer__nav-link" href="#top">
+                  <Link className="link footer__nav-link" to="#top">
                     Где купить?
-                  </a>
+                  </Link>
                 </li>
                 <li className="footer__nav-list-item">
-                  <a className="link footer__nav-link" href="#top">
+                  <Link className="link footer__nav-link" to="#top">
                     Блог
-                  </a>
+                  </Link>
                 </li>
                 <li className="footer__nav-list-item">
-                  <a className="link footer__nav-link" href="#top">
+                  <Link className="link footer__nav-link" to="#top">
                     Вопрос - ответ
-                  </a>
+                  </Link>
                 </li>
                 <li className="footer__nav-list-item">
-                  <a className="link footer__nav-link" href="#top">
+                  <Link className="link footer__nav-link" to="#top">
                     Возврат
-                  </a>
+                  </Link>
                 </li>
                 <li className="footer__nav-list-item">
-                  <a className="link footer__nav-link" href="#top">
+                  <Link className="link footer__nav-link" to="#top">
                     Сервис-центры
-                  </a>
+                  </Link>
                 </li>
               </ul>
             </section>
@@ -120,12 +137,12 @@ function Footer(): JSX.Element {
                 г. Санкт-Петербург,
                 <br /> м. Невский проспект, ул. Казанская 6.
               </p>
-              <a
+              <Link
                 className="link footer__nav-link footer__nav-link--phone"
-                href="tel:88125005050"
+                to="tel:88125005050"
               >
                 8-812-500-50-50
-              </a>
+              </Link>
               <p className="footer__nav-text footer__nav-text--work-hours-title">
                 Режим работы:
                 <span className="footer__nav-text footer__nav-text--work-hours">

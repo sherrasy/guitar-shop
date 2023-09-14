@@ -14,7 +14,7 @@ function GuitarCardSmall(): JSX.Element {
     <>
       <div className="catalog-item__data"><img src="img/content/catalog-product-1.png" srcSet="img/content/catalog-product-1@2x.png 2x" width="36" height="93" alt="Картинка гитары"/>
         <div className="catalog-item__data-wrapper">
-          <Link className="link" to={`${AppRoute.List}/1`}><p className="catalog-item__data-title">{mockGuitar.type} {mockGuitar.name}</p></Link>
+          <Link className="link" to={`${AppRoute.List}/${mockGuitar.id}`}><p className="catalog-item__data-title">{mockGuitar.type} {mockGuitar.name}</p></Link>
           <br/>
           <p className="catalog-item__data-date">Дата добавления {mockGuitar.date}</p>
           <p className="catalog-item__data-price">{mockGuitar.price} ₽</p>

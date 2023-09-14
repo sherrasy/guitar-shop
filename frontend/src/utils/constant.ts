@@ -43,6 +43,11 @@ export const FormStatus = {
   Edit: 'edit',
 } as const;
 
+export const GuitarTab = {
+  Details: 'details',
+  Description: 'description',
+} as const;
+
 export enum AuthorizationStatus {
   Auth = 'AUTH',
   NoAuth = 'NO_AUTH',

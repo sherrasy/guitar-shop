@@ -1,9 +1,13 @@
+import { useNavigate } from 'react-router-dom';
 import Breadcrumbs from '../../components/breadcrumbs/breadcrumbs';
 import Footer from '../../components/footer/footer';
 import GuitarList from '../../components/guitar-list/guitar-list';
 import Header from '../../components/header/header';
+import { AppRoute, FormStatus } from '../../utils/constant';
 
 function GuitarListPage(): JSX.Element {
+  const navigate = useNavigate();
+
   return (
     <>
       <Header />
@@ -21,22 +25,22 @@ function GuitarListPage(): JSX.Element {
                     <label htmlFor="acoustic">Акустические гитары</label>
                   </div>
                   <div className="form-checkbox catalog-filter__block-item">
-                    <input className="visually-hidden" type="checkbox" id="electric" name="electric" checked/>
+                    <input className="visually-hidden" type="checkbox" id="electric" name="electric"/>
                     <label htmlFor="electric">Электрогитары</label>
                   </div>
                   <div className="form-checkbox catalog-filter__block-item">
-                    <input className="visually-hidden" type="checkbox" id="ukulele" name="ukulele" checked/>
+                    <input className="visually-hidden" type="checkbox" id="ukulele" name="ukulele"/>
                     <label htmlFor="ukulele">Укулеле</label>
                   </div>
                 </fieldset>
                 <fieldset className="catalog-filter__block">
                   <legend className="catalog-filter__block-title">Количество струн</legend>
                   <div className="form-checkbox catalog-filter__block-item">
-                    <input className="visually-hidden" type="checkbox" id="4-strings" name="4-strings" checked/>
+                    <input className="visually-hidden" type="checkbox" id="4-strings" name="4-strings"/>
                     <label htmlFor="4-strings">4</label>
                   </div>
                   <div className="form-checkbox catalog-filter__block-item">
-                    <input className="visually-hidden" type="checkbox" id="6-strings" name="6-strings" checked/>
+                    <input className="visually-hidden" type="checkbox" id="6-strings" name="6-strings"/>
                     <label htmlFor="6-strings">6</label>
                   </div>
                   <div className="form-checkbox catalog-filter__block-item">
@@ -63,7 +67,7 @@ function GuitarListPage(): JSX.Element {
               </div>
               <GuitarList/>
             </div>
-            <button className="button product-list__button button--red button--big">Добавить новый товар</button>
+            <button className="button product-list__button button--red button--big" onClick={()=>navigate(`${AppRoute.List}/${FormStatus.Add}`)}>Добавить новый товар</button>
             <div className="pagination product-list__pagination">
               <ul className="pagination__list">
                 <li className="pagination__page pagination__page--active"><a className="link pagination__page-link" href="1">1</a>
