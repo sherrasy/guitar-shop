@@ -13,7 +13,7 @@ function App(): JSX.Element {
   const isAuthorized = true;
   return (
     <Routes>
-      <Route path={AppRoute.Login} index element={<LoginPage />} />
+      <Route path={AppRoute.Login} element={<LoginPage />} />
       <Route path={`${AppRoute.Register}`} element={<RegistrationPage />} />
       <Route path={AppRoute.Error} element={<ErrorPage />} />
       <Route

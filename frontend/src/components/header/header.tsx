@@ -1,24 +1,39 @@
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
+import { AppRoute } from '../../utils/constant';
 
 function Header(): JSX.Element {
+  const location = useLocation();
+  const isMain = location.pathname === AppRoute.Login;
   return (
     <div>
       <header className="header" id="header">
         <div className="container">
           <div className="header__wrapper">
-            <Link className="header__logo logo" to="main.html">
-              <img
-                className="logo__img"
-                width="70"
-                height="70"
-                src="./img/svg/logo.svg"
-                alt="Логотип"
-              />
-            </Link>
+            {isMain ? (
+              <span className="header__logo logo">
+                <img
+                  className="logo__img"
+                  width="70"
+                  height="70"
+                  src="./img/svg/logo.svg"
+                  alt="Логотип"
+                />
+              </span>
+            ) : (
+              <Link className="header__logo logo" to={AppRoute.Login}>
+                <img
+                  className="logo__img"
+                  width="70"
+                  height="70"
+                  src="./img/svg/logo.svg"
+                  alt="Логотип"
+                />
+              </Link>
+            )}
             <nav className="main-nav">
               <ul className="main-nav__list">
                 <li className="main-nav__item">
-                  <Link className="link main-nav__link" to="#">
+                  <Link className="link main-nav__link" to={AppRoute.List}>
                     Каталог
                   </Link>
                 </li>

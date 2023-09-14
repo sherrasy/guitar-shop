@@ -32,7 +32,7 @@ export const StringsAmounts = [4,6,7,12];
 export const ImageTypes = ['jpeg','png'];
 
 export const AppRoute = {
-  Login: '/login',
+  Login: '/',
   Register: '/register',
   List: '/guitar-list',
   Error: '*',
@@ -42,4 +42,10 @@ export const FormStatus = {
   Add: 'add',
   Edit: 'edit',
 } as const;
+
+export enum AuthorizationStatus {
+  Auth = 'AUTH',
+  NoAuth = 'NO_AUTH',
+  Unknown = 'UNKNOWN',
+}
 
