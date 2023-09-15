@@ -1,6 +1,6 @@
 import { WriteStream, createWriteStream } from 'node:fs';
 import { ChunkSize } from '../../utils/constant.js';
-import { FileWriterInterface } from './file-writer.interface';
+import { FileWriterInterface } from '../../types/core/file-writer.interface.js';
 
 export default class TSVFileWriter implements FileWriterInterface{
   private writeStream:WriteStream;

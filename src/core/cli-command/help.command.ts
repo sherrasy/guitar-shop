@@ -1,5 +1,5 @@
 import chalk from 'chalk';
-import { CliCommandInterface } from '../../types/cli-command/cli-command.interface.js';
+import { CliCommandInterface } from '../../types/core/cli-command.interface.js';
 import { HelpMessage } from '../../utils/constant.js';
 
 const coloredTitle = chalk.bold(HelpMessage.Title);

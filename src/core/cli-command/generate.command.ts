@@ -1,7 +1,7 @@
 import got from 'got';
 import { MockData } from '../../types/mock-data.type.js';
 import chalk from 'chalk';
-import { CliCommandInterface } from '../../types/cli-command/cli-command.interface.js';
+import { CliCommandInterface } from '../../types/core/cli-command.interface.js';
 import GuitarGenerator from '../modules/guitar-generator/guitar-generator.js';
 import { ErrorMessage, InfoMessage } from '../../utils/constant.js';
 import TSVFileWriter from '../file-writer/tsv-file-writer.js';

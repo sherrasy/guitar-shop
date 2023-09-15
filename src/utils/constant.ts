@@ -37,7 +37,8 @@ export const PriceLimit = {
 
 export const ErrorMessage = {
   Fetch: 'Can\'t fetch data from ',
-  Import: 'Не удалось импортировать данные. Ошибка: '
+  Import: 'Не удалось импортировать данные. Ошибка: ',
+  Config: 'Can\'t read .env file. Perhaps the file does not exist.'
 }as const;
 
 export const InfoMessage = {
@@ -49,3 +50,14 @@ export const ChunkSize = {
   Read:16384,
   Write: 2 ** 16
 };
+
+export const LoggerInfoMessage = {
+  Initialization: 'Application initialization...',
+  Config: '.env file found and successfully parsed.',
+}as const;
+
+export const AppComponent = {
+  Application: Symbol.for('Application'),
+  LoggerInterface: Symbol.for('LoggerInterface'),
+  ConfigInterface: Symbol.for('ConfigInterface'),
+} as const;
