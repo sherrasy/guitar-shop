@@ -163,6 +163,13 @@ paths:
       summary: Получение детальной информации по товару #5.5
       description: Возвращает  информацию по одному товару
       parameters:
+        - name: X-Token
+          in: header
+          description: Авторизационный токен пользователя
+          required: true
+          schema:
+          type: string
+          example: T2xpdmVyLmNvbm5lckBnbWFpbC5jb20=
         - name: guitarId
           in: path
           description: Уникальный идентификатор товара
@@ -185,6 +192,12 @@ paths:
               application/json:
                 schema:
                   $ref: "#/components/schemas/BadRequestErrorMessage"
+        '401':
+            description: Не удалось изменить товар. Пользователь не авторизован.
+            content:
+              application/json:
+                schema:
+                  $ref: "#/components/schemas/NotAuthorizedErrorMessage"
         '404':
             description: Не удалось получить информацию по товару. Товар с таким идентификатором не существует.
             content:
@@ -246,6 +259,7 @@ paths:
               application/json:
                 schema:
                   $ref: "#/components/schemas/NotFoundErrorMessage"
+
     delete:
       tags:
         - guitars
