@@ -36,11 +36,13 @@ export const PriceLimit = {
 };
 
 export const ErrorMessage = {
-  Fetch: 'Can\'t fetch data from '
+  Fetch: 'Can\'t fetch data from ',
+  Import: 'Не удалось импортировать данные. Ошибка: '
 }as const;
 
 export const InfoMessage = {
-  Generate: 'File successfully generated: ',
+  GenerateFile: 'File successfully generated: ',
+  ImportData: 'Import completed. Rows amount: ',
 }as const;
 
 export const ChunkSize = {
