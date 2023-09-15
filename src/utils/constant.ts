@@ -53,6 +53,7 @@ export const ChunkSize = {
 
 export const LoggerInfoMessage = {
   Initialization: 'Application initialization...',
+  LoggerCreation:'Logger created...',
   Config: '.env file found and successfully parsed.',
 }as const;
 
