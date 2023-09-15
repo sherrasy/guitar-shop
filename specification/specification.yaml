@@ -1,0 +1,429 @@
+openapi: 3.1.0
+info:
+  title: API сервер для проекта «Guitar Shop».
+  description: |-
+    * Список ресурсов и маршрутов сервера «Шесть городов».
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
+  version: 4.0.0
+tags:
+  - name: guitars
+    description: Действия с товарами.
+  - name: users
+    description: Действия с пользователем.
+
+paths:
+  /users/register:
+    post:
+      tags:
+        - users
+      summary: Создание нового пользователя #5.6
+      description: Регистрирует нового пользователя.
+
+      requestBody:
+        description: Информация для создания нового пользователя.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/registerUser'
+        required: true
+
+      responses:
+        "201":
+          description: Пользователь зарегистрирован. Объект пользователя.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/user'
+
+        "409":
+          description: Пользователь с таким email уже существует.
+
+  /users/login:
+    post:
+      tags:
+        - users
+      summary: Авторизация пользователя #5.7
+      description: Авторизует пользователя на основе логина и пароля
+      requestBody:
+        description: Информация для авторизации - логин и пароль.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/loginUser'
+        required: true
+
+      responses:
+        "201":
+          description: Успешная авторизация.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/userWithToken'
+
+        "401":
+          description: Не удалось авторизоваться. Пользователь не найден.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/NotAuthorizedErrorMessage"
+
+    get:
+      tags:
+        - users
+      summary: Проверка состояния пользователя #5.8
+      description: Возвращает информацию по авторизованному пользователю
+      schema:
+            description: Токен авторизации
+            type: string
+            example: T2xpdmVyLmNvbm5lckBnbWFpbC5jb20=
+            required: true
+
+      responses:
+        "200":
+          description: Проверка авторизации пройдена успешно.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/user'
+
+        "401":
+          description: Пользователь не авторизован.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/NotAuthorizedErrorMessage"
+
+  /guitars:
+    post:
+      tags:
+        - guitars
+      summary: Создание нового товара #5.1
+      description: Создает новый товар
+      parameters:
+        - name: X-Token
+          in: header
+          description: Авторизационный токен пользователя
+          required: true
+          schema:
+            type: string
+            example: T2xpdmVyLmNvbm5lckBnbWFpbC5jb20=
+          requestBody:
+              description: Информация для создания товара.
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/guitar'
+              required: true
+      responses:
+          "201":
+            description: Товар создан.
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/guitar'
+          "400":
+            description: Ошибка тела запроса.
+            content:
+              application/json:
+                schema:
+                  $ref: "#/components/schemas/BadRequestErrorMessage"
+          "401":
+            description: Пользователь не авторизован.
+            content:
+              application/json:
+                schema:
+                  $ref: "#/components/schemas/NotAuthorizedErrorMessage"
+    get:
+      tags:
+        - guitars
+      summary: Получение списка  товаров #5.4
+      description: Возвращает список товаров (не более 7 по умолчанию)
+      responses:
+        '200':
+          description: Список товаров
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/guitarssList'
+        '400':
+          description: Не удалось получить список товаров. Ошибка тела запроса.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BadRequestErrorMessage"
+
+  /guitars/{guitarId}:
+    get:
+      tags:
+        - guitars
+      summary: Получение детальной информации по товару #5.5
+      description: Возвращает  информацию по одному товару
+      parameters:
+        - name: guitarId
+          in: path
+          description: Уникальный идентификатор товара
+          required: true
+          schema:
+            type: string
+            example: 6329c3d6a04ab1061c6425ea
+      responses:
+        '200':
+          description: Товар
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/guitar'
+        '400':
+            description: Не удалось получить информацию по товару. Ошибка тела запроса.
+            content:
+              application/json:
+                schema:
+                  $ref: "#/components/schemas/BadRequestErrorMessage"
+        '404':
+            description: Не удалось получить информацию по товару. Товар с таким идентификатором не существует.
+            content:
+              application/json:
+                schema:
+                  $ref: "#/components/schemas/NotFoundErrorMessage"
+
+    patch:
+      tags:
+        - guitars
+      summary: Редактирование товара #5.2
+      description: Редактирование товара
+      parameters:
+        - name: X-Token
+          in: header
+          description: Авторизационный токен пользователя
+          required: true
+          schema:
+          type: string
+          example: T2xpdmVyLmNvbm5lckBnbWFpbC5jb20=
+        - name: guitarId
+          in: path
+          description: Уникальный идентификатор товара
+          required: true
+          schema:
+            type: string
+            example: 6329c3d6a04ab1061c6425ea
+          requestBody:
+            description: Информация для редактирования товара.
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/editGuitar'
+            required: true
+      responses:
+        '200':
+          description: Отредактированный товар
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/guitar'
+        '400':
+            description: Не удалось изменить товар. Ошибка тела запроса.
+            content:
+              application/json:
+                schema:
+                  $ref: "#/components/schemas/BadRequestErrorMessage"
+        '401':
+            description: Не удалось изменить товар. Пользователь не авторизован.
+            content:
+              application/json:
+                schema:
+                  $ref: "#/components/schemas/NotAuthorizedErrorMessage"
+        '404':
+            description: Не удалось изменить товар. Товар с таким идентификатором не существует.
+            content:
+              application/json:
+                schema:
+                  $ref: "#/components/schemas/NotFoundErrorMessage"
+    delete:
+      tags:
+        - guitars
+      summary:  Удаление товара #5.3
+      description: Удаление товара.
+      parameters:
+        - name: X-Token
+          in: header
+          description: Авторизационный токен пользователя
+          required: true
+          schema:
+            type: string
+            example: T2xpdmVyLmNvbm5lckBnbWFpbC5jb20=
+        - name: guitarId
+          in: path
+          description: Уникальный идентификатор товара
+          required: true
+          schema:
+            type: string
+            example: 6329c3d6a04ab1061c6425ea
+      responses:
+        "204":
+          description: Товар удалено.
+
+        "400":
+          description: Не удалось удалить товар. Неправильные данные.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BadRequestErrorMessage"
+        "401":
+          description: Не удалось удалить товар. Пользователь не авторизован.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/NotAuthorizedErrorMessage"
+        "403":
+          description: Не удалось удалить товар. Ошибка доступа.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ForbiddenErrorMessage"
+        "404":
+          description: Не удалось удалить товар. Товар не найден.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/NotFoundErrorMessage"
+
+components:
+  schemas:
+    registerUser:
+      type: object
+      properties:
+        email:
+          type: string
+          example: user@test.ru
+        name:
+          type: string
+          example: User
+        password:
+          type: string
+          example: 123456
+
+    loginUser:
+      type: object
+      properties:
+        email:
+          type: string
+          example: user@test.ru
+        password:
+          type: string
+          example: 123456
+
+    user:
+      type: object
+      properties:
+        email:
+          type: string
+          example: user@test.ru
+        name:
+          type: string
+          example: User
+
+    userWithToken:
+      type: object
+      properties:
+        token:
+          type: string
+          example: 6329c3d6a04ab1061c6425ea
+        email:
+          type: string
+          example: user@test.ru
+        name:
+          type: string
+          example: User
+
+    guitar:
+        type: object
+        properties:
+          name:
+            type: string
+            example: Гитара 1
+          description:
+            type: string
+            example: Описание гитары 1
+          createdDate:
+            type: string
+            example: 2023-05-27T17:30:00Z
+          photo:
+            type: string
+            example: photo-1.png
+          type:
+            type: string
+            enum: [электро, аккустика, укулеле]
+            example: электро
+          vendor:
+            type: string
+            example: hc9ixlypb2ega245cltesh
+          price:
+            type: number
+            example: 15000
+          stringsAmount:
+            type: number
+            enum: [4, 6, 7, 12]
+            example: 4
+
+    editGuitar:
+      type: object
+      properties:
+        guitarId:
+          type: string
+          example:  6329c3d6a04ab1061c6425ea
+        product:
+          $ref: '#/components/schemas/guitar'
+
+    guitarssList:
+      type: array
+      items:
+          type: object
+          $ref: '#/components/schemas/guitar'
+
+    NotFoundErrorMessage:
+      type: object
+      properties:
+        message:
+          type: string
+          example: Товар с таким идентификатором не существует.
+        errorCode:
+          type: string
+          example: Error 404 - Not Found.
+
+    NotAuthorizedErrorMessage:
+      type: object
+      properties:
+        message:
+          type: string
+          example: Не удалось авторизоваться. Войдите снова чтобы продолжить
+        errorCode:
+          type: string
+          example: Error 401 - Unauthorized.
+
+    BadRequestErrorMessage:
+      type: object
+      properties:
+        message:
+          type: string
+          example: Ошибка тела запроса.
+        errorCode:
+          type: string
+          example: Error 400 - Bad Request.
+
+    ForbiddenErrorMessage:
+      type: object
+      properties:
+        message:
+          type: string
+          example: Недостаточно прав для доступа к данным
+        errorCode:
+          type: string
+          example: Error 403 - Forbidden.
