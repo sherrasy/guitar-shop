@@ -6,15 +6,6 @@ export const HelpMessage = {
   --generate <n> <path> <url>  # генерирует произвольное количество тестовых данных`
 } as const;
 
-export const UsernameLength = {
-  Min:1,
-  Max:15,
-};
-
-export const PasswordLength = {
-  Min:6,
-  Max:12,
-};
 
 export const GuitarNameLength = {
   Min:10,
@@ -65,6 +56,7 @@ export const LoggerInfoMessage = {
   DbDisconnect:'Database connection closed.',
   InitDb:'Init database...',
   InitDbDone:'Init database completed',
+  NewData:'New data created: ',
 }as const;
 
 export const LoggerErrorMessage = {
@@ -77,4 +69,6 @@ export const AppComponent = {
   LoggerInterface: Symbol.for('LoggerInterface'),
   ConfigInterface: Symbol.for('ConfigInterface'),
   DatabaseClientInterface: Symbol.for('DatabaseClientInterface'),
+  UserServiceInterface: Symbol.for('UserServiceInterface'),
+  UserModel: Symbol.for('UserModel'),
 } as const;
