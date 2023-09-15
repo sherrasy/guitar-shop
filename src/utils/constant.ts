@@ -6,26 +6,6 @@ export const HelpMessage = {
   --generate <n> <path> <url>  # генерирует произвольное количество тестовых данных`
 } as const;
 
-
-export const GuitarNameLength = {
-  Min:10,
-  Max:100,
-};
-
-export const DescriptionLength = {
-  Min:20,
-  Max:1024,
-};
-export const VendorLength = {
-  Min:5,
-  Max:40,
-};
-
-export const PriceLimit = {
-  Min:100,
-  Max:1000000,
-};
-
 export const ErrorMessage = {
   Fetch: 'Can\'t fetch data from ',
   Import: 'Не удалось импортировать данные. Ошибка: ',
@@ -71,4 +51,11 @@ export const AppComponent = {
   DatabaseClientInterface: Symbol.for('DatabaseClientInterface'),
   UserServiceInterface: Symbol.for('UserServiceInterface'),
   UserModel: Symbol.for('UserModel'),
+  GuitarServiceInterface: Symbol.for('GuitarServiceInterface'),
+  GuitarModel: Symbol.for('GuitarModel'),
+} as const;
+
+export const EntityName = {
+  User:'User',
+  Guitar:'Guitar',
 } as const;
