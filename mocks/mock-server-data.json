@@ -24,7 +24,7 @@
       "photo-6.png",
       "photo-7.png"
     ],
-    "users": ["John"],
+    "users": ["admin"],
     "emails": ["admin@mail.com"],
     "guitarTypes": [
       "электро",
