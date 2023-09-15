@@ -59,7 +59,7 @@ npm run cli -- --help
 > Перед выполнением необходимо запустить сервер с моковыми данными.
 
 ```bash
-npm run cli.ts -- --generate 10 ./mocks/test-data.tsv http://localhost:3123/api
+npm run cli -- --generate 10 ./mocks/test-data.tsv http://localhost:3123/api
 ```
 
 ### Переменные окружения
