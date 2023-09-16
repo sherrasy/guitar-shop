@@ -52,5 +52,17 @@ export const configSchema = convict<ConfigSchema>({
     format: String,
     env: 'DB_NAME',
     default: 'guitar-shop'
-  }
+  },
+  UPLOAD_DIRECTORY: {
+    doc: 'Directory for uploaded files',
+    format: String,
+    env: 'UPLOAD_DIRECTORY',
+    default: null
+  },
+  STATIC_DIRECTORY: {
+    doc: 'Directory for static resourses',
+    format: String,
+    env: 'STATIC_DIRECTORY',
+    default: 'static'
+  },
 });

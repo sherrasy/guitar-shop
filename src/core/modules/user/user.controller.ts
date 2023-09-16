@@ -14,11 +14,13 @@ import { fillDTO } from '../../helpers/common.js';
 import LoginUserDto from './dto/login-user.dto.js';
 import { LoggerInfoMessage } from '../../logger/logger.constant.js';
 import { ConfigSchema } from '../../../types/core/config-schema.type.js';
-import { ControllerRoute, ObjectIdParam } from '../../../utils/constant.js';
-import { ValidateObjectIdMiddleware } from '../../middleware/validate-objectId.middleware.js';
+import { ControllerRoute } from '../../../utils/constant.js';
+import { ValidateDTOMiddleware } from '../../middleware/validate-dto.middleware.js';
 
 @injectable()
 export default class UserController extends Controller {
+  private readonly name = 'UserController';
+
   constructor(
     @inject(AppComponent.LoggerInterface)
     protected readonly logger: LoggerInterface,
@@ -29,7 +31,7 @@ export default class UserController extends Controller {
   ) {
     super(logger);
 
-    this.logger.info(LoggerInfoMessage.RegisterRoute.concat('UserController'));
+    this.logger.info(LoggerInfoMessage.RegisterRoute.concat(this.name));
 
     this.addRoute({
       path: ControllerRoute.Login,
@@ -42,7 +44,7 @@ export default class UserController extends Controller {
       method: HttpMethod.Post,
       handler: this.login,
       middlewares:[
-        new ValidateObjectIdMiddleware(ObjectIdParam.UserId),
+        new ValidateDTOMiddleware(LoginUserDto),
       ]
     });
 
@@ -51,7 +53,7 @@ export default class UserController extends Controller {
       method: HttpMethod.Post,
       handler: this.create,
       middlewares:[
-        new ValidateObjectIdMiddleware(ObjectIdParam.UserId),
+        new ValidateDTOMiddleware(CreateUserDto),
       ]
     });
   }
@@ -69,7 +71,7 @@ export default class UserController extends Controller {
       throw new HttpError(
         StatusCodes.CONFLICT,
         `User with email "${body.email}" exists.`,
-        'UserController'
+        this.name
       );
     }
 
@@ -92,14 +94,14 @@ export default class UserController extends Controller {
       throw new HttpError(
         StatusCodes.UNAUTHORIZED,
         `User with email "${body.email}" not found`,
-        'UserController'
+        this.name
       );
     }
 
     throw new HttpError(
       StatusCodes.NOT_IMPLEMENTED,
       'Not implemented',
-      'UserController'
+      this.name
     );
   }
 

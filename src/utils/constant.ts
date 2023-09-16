@@ -66,3 +66,21 @@ export const ObjectIdParam = {
   UserId:'userId',
   GuitarId:'guitarId',
 } as const;
+
+export const MiddlewareName = {
+  DocumentExists:'DocumentExistsMiddleware',
+  ValidateObjectId:'ValidateObjectIdMiddleware',
+  Authenticate:'AuthenticateMiddleware',
+  PrivateRoute:'PrivateRouteMiddleware',
+} as const;
+
+export const ExceptionFilterName = {
+  Base:'BaseExceptionFilter',
+  Validation:'ValidationExceptionFilter',
+  Http:'HttpErrorExceptionFilter',
+} as const;
+
+export const DirectoryPath = {
+  Upload:'/upload',
+  Static:'/static',
+} as const;

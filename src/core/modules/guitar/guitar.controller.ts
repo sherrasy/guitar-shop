@@ -5,9 +5,7 @@ import { HttpMethod } from '../../../types/http-method.enum.js';
 import { LoggerInterface } from '../../../types/core/logger.interface';
 import { fillDTO } from '../../helpers/common.js';
 import { ParamsDictionary } from 'express-serve-static-core';
-import HttpError from '../../errors/http-error.js';
-import { StatusCodes } from 'http-status-codes';
-import { ControllerRoute, ObjectIdParam } from '../../../utils/constant.js';
+import { ControllerRoute, EntityName, ObjectIdParam } from '../../../utils/constant.js';
 import { LoggerInfoMessage } from '../../logger/logger.constant.js';
 import { GuitarServiceInterface } from './guitar-service.interface.js';
 import GuitarRdo from './rdo/guitar.rdo.js';
@@ -17,6 +15,7 @@ import { RequestQuery } from '../../../types/request-query.type.js';
 import { inject, injectable } from 'inversify';
 import { ValidateDTOMiddleware } from '../../middleware/validate-dto.middleware.js';
 import { ValidateObjectIdMiddleware } from '../../middleware/validate-objectId.middleware.js';
+import { DocumentExistsMiddleware } from '../../middleware/document-exists.middleware.js';
 
 type ParamsGuitarDetails =
   | {
@@ -28,6 +27,8 @@ type UnknownRecord = Record<string, unknown>;
 
 @injectable()
 export default class GuitarController extends Controller {
+  private readonly name = 'GuitarController';
+
   constructor(
     @inject(AppComponent.LoggerInterface)
     protected readonly logger: LoggerInterface,
@@ -37,7 +38,7 @@ export default class GuitarController extends Controller {
     super(logger);
 
     this.logger.info(
-      LoggerInfoMessage.RegisterRoute.concat('GuitarController')
+      LoggerInfoMessage.RegisterRoute.concat(this.name)
     );
 
     this.addRoute({
@@ -61,6 +62,8 @@ export default class GuitarController extends Controller {
       handler: this.showGuitar,
       middlewares:[
         new ValidateObjectIdMiddleware(ObjectIdParam.GuitarId),
+        new DocumentExistsMiddleware(this.guitarService, EntityName.Guitar, ObjectIdParam.GuitarId)
+
       ]
     });
 
@@ -70,7 +73,8 @@ export default class GuitarController extends Controller {
       handler: this.update,
       middlewares:[
         new ValidateObjectIdMiddleware(ObjectIdParam.GuitarId),
-        new ValidateDTOMiddleware(UpdateGuitarDto)
+        new ValidateDTOMiddleware(UpdateGuitarDto),
+        new DocumentExistsMiddleware(this.guitarService, EntityName.Guitar, ObjectIdParam.GuitarId)
       ]
     });
 
@@ -80,6 +84,7 @@ export default class GuitarController extends Controller {
       handler: this.delete,
       middlewares:[
         new ValidateObjectIdMiddleware(ObjectIdParam.GuitarId),
+        new DocumentExistsMiddleware(this.guitarService, EntityName.Guitar, ObjectIdParam.GuitarId)
       ]
     });
   }
@@ -110,13 +115,6 @@ export default class GuitarController extends Controller {
   ): Promise<void> {
     const { guitarId } = params;
     const guitar = await this.guitarService.findById(guitarId);
-    if (!guitar) {
-      throw new HttpError(
-        StatusCodes.NOT_FOUND,
-        `Guitar with id ${guitarId} not found.`,
-        'GuitarController'
-      );
-    }
     this.ok(res, fillDTO(GuitarRdo, guitar));
   }
 
@@ -131,15 +129,6 @@ export default class GuitarController extends Controller {
       params.guitarId,
       body
     );
-
-    if (!updatedGuitar) {
-      throw new HttpError(
-        StatusCodes.NOT_FOUND,
-        `Guitar with id ${params.guitarId} not found.`,
-        'GuitarController'
-      );
-    }
-
     this.ok(res, fillDTO(GuitarRdo, updatedGuitar));
   }
 
@@ -149,15 +138,6 @@ export default class GuitarController extends Controller {
   ): Promise<void> {
     const { guitarId } = params;
     const guitar = await this.guitarService.deleteById(guitarId);
-
-    if (!guitar) {
-      throw new HttpError(
-        StatusCodes.NOT_FOUND,
-        `Guitar with id ${guitarId} not found.`,
-        'GuitarController'
-      );
-    }
-
     this.noContent(res, guitar);
   }
 }

@@ -6,7 +6,7 @@ import { getMongoURI } from '../core/helpers/db.js';
 import express, { Express } from 'express';
 import { LoggerInfoMessage } from '../core/logger/logger.constant.js';
 import { AppComponent } from '../types/app-component.enum.js';
-import { AppPartName, ControllerRoute } from '../utils/constant.js';
+import { AppPartName, ControllerRoute, DirectoryPath } from '../utils/constant.js';
 import { ConfigSchema } from '../types/core/config-schema.type.js';
 import { getFullServerPath } from '../core/helpers/common.js';
 import { ControllerInterface } from '../types/core/controller.interface';
@@ -69,6 +69,15 @@ export default class Application {
   private async _initMiddleware() {
     this.logger.info(`${AppPartName.Middleware} ${LoggerInfoMessage.Init}`);
     this.expressApplication.use(express.json());
+    this.expressApplication.use(
+      DirectoryPath.Upload,
+      express.static(this.config.get('UPLOAD_DIRECTORY'))
+    );
+    this.expressApplication.use(
+      DirectoryPath.Static,
+      express.static(this.config.get('STATIC_DIRECTORY'))
+    );
+
     this.logger.info(`${AppPartName.Middleware} ${LoggerInfoMessage.InitDone}`);
   }
 

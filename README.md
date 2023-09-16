@@ -82,6 +82,8 @@ npm run cli -- --generate 10 ./mocks/test-data.tsv http://localhost:3123/api
 
 - `DB_PORT=27017` - порт сервера базы данных;
 
-- `DB_NAME='guitar-shop'` - название базы данных.
+- `DB_NAME='guitar-shop'` - название базы данных;
+
+- `UPLOAD_DIRECTORY=upload` - название директории для загружаемых файлов.
 
 ### Количество часов, затраченных на проект
