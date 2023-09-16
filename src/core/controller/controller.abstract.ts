@@ -3,9 +3,9 @@ import { StatusCodes } from 'http-status-codes';
 import { injectable } from 'inversify';
 import { LoggerInterface } from '../../types/core/logger.interface';
 import { LoggerInfoMessage } from '../logger/logger.constant.js';
-import { RouteInterface } from '../../types/route.interface';
 import { ControllerInterface } from '../../types/core/controller.interface';
 import asyncHandler from 'express-async-handler';
+import { RouteInterface } from '../../types/core/route.interface';
 
 @injectable()
 export abstract class Controller implements ControllerInterface {
@@ -22,7 +22,10 @@ export abstract class Controller implements ControllerInterface {
   }
 
   public addRoute(route: RouteInterface) {
-    this._router[route.method](route.path, asyncHandler(route.handler.bind(this)));
+    const routeHandler = asyncHandler(route.handler.bind(this));
+    const middlewares = route.middlewares?.map((middleware)=>asyncHandler(middleware.execute.bind(middleware)));
+    const allHandlers = middlewares ? [...middlewares, routeHandler] : routeHandler;
+    this._router[route.method](route.path, allHandlers);
     const routeInfo = `${route.method.toUpperCase()} ${route.path}`;
     this.logger.info(LoggerInfoMessage.NewRoute.concat(routeInfo));
   }

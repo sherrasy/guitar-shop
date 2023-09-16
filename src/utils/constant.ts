@@ -61,3 +61,8 @@ export const ControllerRoute = {
   Register:'/register',
   Login:'/login',
 };
+
+export const ObjectIdParam = {
+  UserId:'userId',
+  GuitarId:'guitarId',
+} as const;

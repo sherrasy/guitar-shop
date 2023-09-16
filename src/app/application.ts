@@ -23,9 +23,10 @@ export default class Application {
     private readonly config: ConfigInterface<ConfigSchema>,
     @inject(AppComponent.DatabaseClientInterface)
     private readonly databaseClient: DatabaseClientInterface,
-    // @inject(AppComponent.GuitarController) private readonly guitarController: ControllerInterface,
     @inject(AppComponent.UserController)
     private readonly userController: ControllerInterface,
+    @inject(AppComponent.GuitarController)
+    private readonly guitarController: ControllerInterface,
     @inject(AppComponent.ExceptionFilterInterface)
     private readonly exceptionFilter: ExceptionFilterInterface,
   ) {
@@ -58,8 +59,10 @@ export default class Application {
 
   private async _initController() {
     this.logger.info(`${AppPartName.Controller} ${LoggerInfoMessage.Init}`);
-    // this.expressApplication.use(ControllerRoute.GuitarsList, this.guitarController.router);
+
     this.expressApplication.use(ControllerRoute.UsersList, this.userController.router);
+    this.expressApplication.use(ControllerRoute.GuitarsList, this.guitarController.router);
+
     this.logger.info(`${AppPartName.Controller} ${LoggerInfoMessage.InitDone}`);
   }
 

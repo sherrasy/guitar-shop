@@ -14,27 +14,52 @@ import { fillDTO } from '../../helpers/common.js';
 import LoginUserDto from './dto/login-user.dto.js';
 import { LoggerInfoMessage } from '../../logger/logger.constant.js';
 import { ConfigSchema } from '../../../types/core/config-schema.type.js';
-import { ControllerRoute } from '../../../utils/constant.js';
-
+import { ControllerRoute, ObjectIdParam } from '../../../utils/constant.js';
+import { ValidateObjectIdMiddleware } from '../../middleware/validate-objectId.middleware.js';
 
 @injectable()
 export default class UserController extends Controller {
   constructor(
-    @inject(AppComponent.LoggerInterface) protected readonly logger: LoggerInterface,
-    @inject(AppComponent.UserServiceInterface) private readonly userService: UserServiceInterface,
-    @inject(AppComponent.ConfigInterface) private readonly configService: ConfigInterface<ConfigSchema>,
+    @inject(AppComponent.LoggerInterface)
+    protected readonly logger: LoggerInterface,
+    @inject(AppComponent.UserServiceInterface)
+    private readonly userService: UserServiceInterface,
+    @inject(AppComponent.ConfigInterface)
+    private readonly configService: ConfigInterface<ConfigSchema>
   ) {
     super(logger);
 
     this.logger.info(LoggerInfoMessage.RegisterRoute.concat('UserController'));
 
-    this.addRoute({path: ControllerRoute.Login, method: HttpMethod.Get, handler: this.check});
-    this.addRoute({path: ControllerRoute.Login, method: HttpMethod.Post, handler: this.login});
-    this.addRoute({path: ControllerRoute.Register, method: HttpMethod.Post, handler: this.create});
+    this.addRoute({
+      path: ControllerRoute.Login,
+      method: HttpMethod.Get,
+      handler: this.check,
+    });
+
+    this.addRoute({
+      path: ControllerRoute.Login,
+      method: HttpMethod.Post,
+      handler: this.login,
+      middlewares:[
+        new ValidateObjectIdMiddleware(ObjectIdParam.UserId),
+      ]
+    });
+
+    this.addRoute({
+      path: ControllerRoute.Register,
+      method: HttpMethod.Post,
+      handler: this.create,
+      middlewares:[
+        new ValidateObjectIdMiddleware(ObjectIdParam.UserId),
+      ]
+    });
   }
 
   public async create(
-    {body}: Request<Record<string, unknown>, Record<string, unknown>, CreateUserDto>,
+    {
+      body,
+    }: Request<Record<string, unknown>, Record<string, unknown>, CreateUserDto>,
     res: Response,
     _next: NextFunction
   ): Promise<void> {
@@ -48,13 +73,18 @@ export default class UserController extends Controller {
       );
     }
 
-    const result = await this.userService.create(body, this.configService.get('SALT'));
+    const result = await this.userService.create(
+      body,
+      this.configService.get('SALT')
+    );
     this.created(res, fillDTO(UserRdo, result));
   }
 
   public async login(
-    {body}: Request<Record<string, unknown>, Record<string, unknown>, LoginUserDto>,
-    _res: Response,
+    {
+      body,
+    }: Request<Record<string, unknown>, Record<string, unknown>, LoginUserDto>,
+    _res: Response
   ): Promise<void> {
     const existsUser = await this.userService.findByEmail(body.email);
 
@@ -62,20 +92,19 @@ export default class UserController extends Controller {
       throw new HttpError(
         StatusCodes.UNAUTHORIZED,
         `User with email "${body.email}" not found`,
-        'UserController',
+        'UserController'
       );
     }
 
     throw new HttpError(
       StatusCodes.NOT_IMPLEMENTED,
       'Not implemented',
-      'UserController',
+      'UserController'
     );
   }
 
-  public async check({body}:Request, res:Response):Promise<void>{
+  public async check({ body }: Request, res: Response): Promise<void> {
     const user = await this.userService.findByEmail(body.email);
     this.ok(res, fillDTO(UserRdo, user));
   }
-
 }

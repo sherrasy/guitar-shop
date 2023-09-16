@@ -1,0 +1,49 @@
+@guitarId={{createGuitar.response.body.id}}
+
+# Объявления
+## Получить список товаров (5.4)
+GET http://localhost:4000/guitars?limit=7 HTTP/1.1
+Content-Type: application/json
+
+###
+
+
+## Создание нового товара (5.1)
+# @name createGuitar
+POST http://localhost:4000/guitars HTTP/1.1
+Content-Type: application/json
+
+{
+    "name": "СURT Z30 Plus",
+    "description": "Гитара подходит как для старта обучения, так и для домашних занятий или использования в полевых условиях, например, в походах или для проведения уличных выступлений. Доступная стоимость, качество и надежная конструкция, а также приятный внешний вид, который сделает вас звездой вечеринки.",
+    "createdDate": "2023-09-10T13:33:53.580Z",
+    "photo": "photo-3.png",
+    "type": "электро",
+    "vendor": "SO754565",
+    "price": 39319,
+    "stringsAmount": 6
+  }
+
+###
+
+
+## Показать детальную информацию по предложению (5.5)
+GET http://localhost:4000/guitars/{{guitarId}} HTTP/1.1
+
+###
+
+## Редактировать товар (5.2)
+PATCH  http://localhost:4000/guitars/{{guitarId}} HTTP/1.1
+Content-Type: application/json
+
+{
+    "name": "SZT 102 Test",
+    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam tincidunt augue felis, in ultrices quam pulvinar a. Vivamus bibendum justo id dapibus lacinia. Aenean in volutpat sapien. Nam commodo velit pharetra diam euismod, a semper tortor pulvinar. Nulla vulputate mauris id tempus pharetra"
+  }
+
+###
+
+## Удалить товар (5.3)
+DELETE http://localhost:4000/guitars/{{guitarId}} HTTP/1.1
+
+###

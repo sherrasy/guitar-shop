@@ -1,5 +1,5 @@
 import { Length, IsInt, Min, Max, IsDateString, IsEnum, IsIn } from 'class-validator';
-import { DescriptionLength, GuitarNameLength, PriceLimit, STRINGS_AMOUNTS, VendorLength } from '../guitar.constant';
+import { DescriptionLength, GuitarNameLength, PriceLimit, STRINGS_AMOUNTS, VendorLength } from '../guitar.constant.js';
 import { GuitarType } from '../../../../types/guitar-type.enum.js';
 
 export default class UpdateGuitarDto {
