@@ -1,8 +1,8 @@
 import dayjs from 'dayjs';
 import { generateRandomValue, generateRandomVendor, getRandomItem } from '../../helpers/index.js';
 import { MockData } from '../../../types/mock-data.type.js';
-import { PriceLimit } from '../../../utils/constant.js';
 import { GuitarGeneratorInterface } from './guitar-generator.interface.js';
+import { PriceLimit } from '../guitar/guitar.constant.js';
 
 const WeekDay = {
   First:1,

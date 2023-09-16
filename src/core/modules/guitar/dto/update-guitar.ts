@@ -1,6 +1,6 @@
 import { Length, IsInt, Min, Max, IsDateString, IsEnum, IsIn } from 'class-validator';
 import { DescriptionLength, GuitarNameLength, PriceLimit, STRINGS_AMOUNTS, VendorLength } from '../guitar.constant';
-import { GuitarType } from '../../../../types/guitar-type.enum';
+import { GuitarType } from '../../../../types/guitar-type.enum.js';
 
 export default class UpdateGuitarDto {
   @Length(GuitarNameLength.Min, GuitarNameLength.Max, {
@@ -34,6 +34,6 @@ export default class UpdateGuitarDto {
   public price?: number;
 
   @IsIn(STRINGS_AMOUNTS, {message: `Strings amount must be one of: ${STRINGS_AMOUNTS.join(', ')}`})
-  public stringsCount?: number;
+  public stringsAmount?: number;
 
 }

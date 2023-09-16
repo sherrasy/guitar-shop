@@ -1,5 +1,5 @@
 import { Expose } from 'class-transformer';
-import { GuitarType } from '../../../../types/guitar-type.enum';
+import { GuitarType } from '../../../../types/guitar-type.enum.js';
 
 
 export default class GuitarRdo{

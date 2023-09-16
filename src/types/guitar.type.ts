@@ -1,4 +1,4 @@
-import { GuitarType } from './guitar-type.enum';
+import { GuitarType } from './guitar-type.enum.js';
 
 export type Guitar = {
   name: string;
@@ -7,8 +7,8 @@ export type Guitar = {
   photo: string;
   type: GuitarType;
   vendor: string;
-  stringsAmount: number;
   price: number;
+  stringsAmount: number;
 }
 
 

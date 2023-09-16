@@ -6,7 +6,7 @@ import { LoggerInterface } from '../../../types/core/logger.interface';
 import { GuitarEntity } from './guitar.entity';
 import CreateGuitarDto from './dto/create-guitar.js';
 import UpdateGuitarDto from './dto/update-guitar.js';
-import { DEFAULT_GUITARS_AMOUNT } from './guitar.constant';
+import { DEFAULT_GUITARS_AMOUNT } from './guitar.constant.js';
 
 @injectable()
 export default class GuitarService implements GuitarServiceInterface {
