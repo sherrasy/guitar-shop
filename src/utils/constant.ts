@@ -27,6 +27,12 @@ export const DbReconnectParam = {
   Timeout: 10000
 };
 
+export const DEFAULT_USER = {
+  name: 'admin',
+  email: 'admin@test.ru',
+  password: 'admin'
+};
+
 export const LoggerInfoMessage = {
   InitApp: 'Application initialization...',
   LoggerCreation:'Logger created...',

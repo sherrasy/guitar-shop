@@ -24,8 +24,6 @@
       "photo-6.png",
       "photo-7.png"
     ],
-    "users": ["admin"],
-    "emails": ["admin@mail.com"],
     "guitarTypes": [
       "электро",
       "акустика",
