@@ -8,10 +8,11 @@ Content-Type: application/json
 
 {
   "email": "admin@test.ru",
-  "password": "test123"
+  "password": "admin123"
 }
+###
 
-# Объявления
+# Товары
 ## Получить список товаров (5.4)
 GET http://localhost:4000/guitars?limit=7 HTTP/1.1
 Content-Type: application/json
@@ -24,6 +25,7 @@ Content-Type: application/json
 POST http://localhost:4000/guitars HTTP/1.1
 Content-Type: application/json
 Authorization: Bearer {{authToken}}
+
 {
     "name": "СURT Z30 Plus",
     "description": "Гитара подходит как для старта обучения, так и для домашних занятий или использования в полевых условиях, например, в походах или для проведения уличных выступлений. Доступная стоимость, качество и надежная конструкция, а также приятный внешний вид, который сделает вас звездой вечеринки.",
@@ -47,6 +49,7 @@ Authorization: Bearer {{authToken}}
 PATCH  http://localhost:4000/guitars/{{guitarId}} HTTP/1.1
 Content-Type: application/json
 Authorization: Bearer {{authToken}}
+
 {
     "name": "SZT 102 Test",
     "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam tincidunt augue felis, in ultrices quam pulvinar a. Vivamus bibendum justo id dapibus lacinia. Aenean in volutpat sapien. Nam commodo velit pharetra diam euismod, a semper tortor pulvinar. Nulla vulputate mauris id tempus pharetra"
@@ -57,4 +60,19 @@ Authorization: Bearer {{authToken}}
 ## Удалить товар (5.3)
 DELETE http://localhost:4000/guitars/{{guitarId}} HTTP/1.1
 Authorization: Bearer {{authToken}}
+###
+
+## Загрузить фото товара
+
+POST http://localhost:4000/guitars/{{guitarId}}/photo HTTP/1.1
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
+Authorization: Bearer {{authToken}}
+
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="photo"; filename="catalog-product-0.png"
+Content-Type: image/png
+
+< ../../../../static/catalog-product-0.png
+------WebKitFormBoundary7MA4YWxkTrZu0gW--
+
 ###

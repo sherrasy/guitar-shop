@@ -1,7 +1,7 @@
 export const DEFAULT_USER = {
   name: 'admin',
   email: 'admin@test.ru',
-  password: 'admin'
+  password: 'admin123'
 };
 
 export const HelpMessage = {
@@ -90,4 +90,9 @@ export const ExceptionFilterName = {
 export const DirectoryPath = {
   Upload:'/upload',
   Static:'/static',
+} as const;
+
+export const PhotoUploadParam = {
+  ResourseField:'photo',
+  DefaultImage:'catalog-product-0.png',
 } as const;

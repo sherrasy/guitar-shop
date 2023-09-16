@@ -6,13 +6,20 @@ import { LoggerInfoMessage } from '../logger/logger.constant.js';
 import { ControllerInterface } from '../../types/core/controller.interface';
 import asyncHandler from 'express-async-handler';
 import { RouteInterface } from '../../types/core/route.interface';
+import { ConfigInterface } from '../../types/core/config.interface';
+import { ConfigSchema } from '../../types/core/config-schema.type';
+import { UnknownRecord } from '../../types/unknown-record.type';
+import { getFullServerPath } from '../helpers/common.js';
+import { PhotoUploadParam } from '../../utils/constant.js';
+import { transformObject } from '../helpers/transform-object.js';
 
 @injectable()
 export abstract class Controller implements ControllerInterface {
   private readonly _router: Router;
 
   constructor(
-    protected readonly logger: LoggerInterface
+    protected readonly logger: LoggerInterface,
+    protected readonly configService: ConfigInterface<ConfigSchema>
   ) {
     this._router = Router();
   }
@@ -30,7 +37,18 @@ export abstract class Controller implements ControllerInterface {
     this.logger.info(LoggerInfoMessage.NewRoute.concat(routeInfo));
   }
 
+  protected addStaticPath(data: UnknownRecord): void {
+    const fullServerPath = getFullServerPath(this.configService.get('HOST'), this.configService.get('PORT'));
+    transformObject(
+      PhotoUploadParam.ResourseField,
+      `${fullServerPath}/${this.configService.get('STATIC_DIRECTORY')}`,
+      `${fullServerPath}/${this.configService.get('UPLOAD_DIRECTORY')}`,
+      data
+    );
+  }
+
   public send<T>(res: Response, statusCode: number, data: T): void {
+    this.addStaticPath(data as UnknownRecord);
     res
       .type('application/json')
       .status(statusCode)

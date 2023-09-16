@@ -30,9 +30,9 @@ export default class UserController extends Controller {
     @inject(AppComponent.UserServiceInterface)
     private readonly userService: UserServiceInterface,
     @inject(AppComponent.ConfigInterface)
-    private readonly configService: ConfigInterface<ConfigSchema>
+    protected readonly configService: ConfigInterface<ConfigSchema>,
   ) {
-    super(logger);
+    super(logger, configService);
 
     this.logger.info(LoggerInfoMessage.RegisterRoute.concat(this.name));
 
