@@ -3,7 +3,9 @@ import { DatabaseClientInterface } from '../../types/core/database-client.interf
 import mongoose, { Mongoose } from 'mongoose';
 import { LoggerInterface } from '../../types/core/logger.interface.js';
 import { setTimeout } from 'node:timers/promises';
-import { AppComponent, DbReconnectParam, LoggerErrorMessage, LoggerInfoMessage } from '../../utils/constant.js';
+import { DbReconnectParam, ErrorMessage } from '../../utils/constant.js';
+import { LoggerErrorMessage, LoggerInfoMessage } from '../logger/logger.constant.js';
+import { AppComponent } from '../../types/app-component.enum.js';
 
 @injectable()
 export default class MongoClientService implements DatabaseClientInterface{
@@ -28,7 +30,7 @@ export default class MongoClientService implements DatabaseClientInterface{
     }
 
     this.logger.error(LoggerErrorMessage.DbConnectMultipleFail);
-    throw new Error(LoggerErrorMessage.DbConnectFail);
+    throw new Error(ErrorMessage.DbConnectFail);
   }
 
   private async _connect(uri:string): Promise<void> {
@@ -44,7 +46,7 @@ export default class MongoClientService implements DatabaseClientInterface{
 
   public async connect(uri: string): Promise<void> {
     if (this.isConnected) {
-      throw new Error(LoggerInfoMessage.DbConnect);
+      throw new Error(ErrorMessage.DbConnect);
     }
 
     this.logger.info(LoggerInfoMessage.DbConnectInProgress);
@@ -54,7 +56,7 @@ export default class MongoClientService implements DatabaseClientInterface{
 
   public async disconnect(): Promise<void> {
     if (!this.isConnected) {
-      throw new Error(LoggerInfoMessage.DbDisconnect);
+      throw new Error(ErrorMessage.DbDisconnect);
     }
 
     await this._disconnect();

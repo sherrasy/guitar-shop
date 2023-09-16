@@ -4,7 +4,10 @@ import CreateUserDto from './dto/create-user.dto.js';
 import {UserServiceInterface} from './user-service.interface.js';
 import { inject, injectable } from 'inversify';
 import { LoggerInterface } from '../../../types/core/logger.interface.js';
-import { AppComponent, LoggerInfoMessage } from '../../../utils/constant.js';
+import { LoggerInfoMessage } from '../../logger/logger.constant.js';
+import { AppComponent } from '../../../types/app-component.enum.js';
+import { EntityName } from '../../../utils/constant.js';
+import LoginUserDto from './dto/login-user.dto.js';
 
 @injectable()
 export default class UserService implements UserServiceInterface {
@@ -19,7 +22,7 @@ export default class UserService implements UserServiceInterface {
 
     const result = await this.userModel.create(user);
 
-    this.logger.info(LoggerInfoMessage.NewData.concat('user'));
+    this.logger.info(LoggerInfoMessage.NewData.concat(EntityName.User));
 
     return result;
   }
@@ -36,5 +39,19 @@ export default class UserService implements UserServiceInterface {
     }
 
     return this.create(dto, salt);
+  }
+
+  public async verifyUser(dto: LoginUserDto, salt: string): Promise<DocumentType<UserEntity> | null> {
+    const user = await this.findByEmail(dto.email);
+
+    if (! user) {
+      return null;
+    }
+
+    if (user.verifyPassword(dto.password, salt)) {
+      return user;
+    }
+
+    return null;
   }
 }

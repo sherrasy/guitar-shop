@@ -1,0 +1,28 @@
+import { UnknownRecord } from '../../types/unknown-record.type.js';
+import { PhotoUploadParam } from '../../utils/constant.js';
+
+function isObject(value: unknown) {
+  return typeof value === 'object' && value !== null;
+}
+
+export function transformProperty(
+  property: string,
+  someObject: UnknownRecord,
+  transformFn: (object: UnknownRecord) => void
+) {
+  return Object.keys(someObject)
+    .forEach((key) => {
+      if (key === property) {
+        transformFn(someObject);
+      } else if (isObject(someObject[key])) {
+        transformProperty(property, someObject[key] as UnknownRecord, transformFn);
+      }
+    });
+}
+
+export function transformObject(property: string, staticPath: string, uploadPath: string, data:UnknownRecord) {
+  return transformProperty(property, data, (target: UnknownRecord) => {
+    const rootPath = PhotoUploadParam.DefaultImage === target[property] as string ? staticPath : uploadPath;
+    target[property] = `${rootPath}/${target[property]}`;
+  });
+}

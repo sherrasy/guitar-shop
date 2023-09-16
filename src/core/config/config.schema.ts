@@ -1,17 +1,8 @@
 import convict from 'convict';
 import validator from 'convict-format-with-validator';
+import { ConfigSchema } from '../../types/core/config-schema.type';
 
 convict.addFormats(validator);
-
-export type ConfigSchema = {
-  PORT: number;
-  SALT:string;
-  DB_HOST: string;
-  DB_USER: string;
-  DB_PASSWORD: string;
-  DB_PORT: string;
-  DB_NAME: string;
-}
 
 export const configSchema = convict<ConfigSchema>({
   PORT: {
@@ -19,6 +10,12 @@ export const configSchema = convict<ConfigSchema>({
     format: 'port',
     env: 'PORT',
     default: 4000
+  },
+  HOST: {
+    doc: 'Host for service',
+    format: String,
+    env: 'HOST',
+    default: 'localhost'
   },
   SALT: {
     doc: 'Salt for password hash',
@@ -55,5 +52,23 @@ export const configSchema = convict<ConfigSchema>({
     format: String,
     env: 'DB_NAME',
     default: 'guitar-shop'
+  },
+  UPLOAD_DIRECTORY: {
+    doc: 'Directory for uploaded files',
+    format: String,
+    env: 'UPLOAD_DIRECTORY',
+    default: null
+  },
+  STATIC_DIRECTORY: {
+    doc: 'Directory for static resourses',
+    format: String,
+    env: 'STATIC_DIRECTORY',
+    default: 'static'
+  },
+  JWT_SECRET: {
+    doc: 'Secret for sign JWT',
+    format: String,
+    env: 'JWT_SECRET',
+    default: null
   }
 });

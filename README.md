@@ -70,7 +70,9 @@ npm run cli -- --generate 10 ./mocks/test-data.tsv http://localhost:3123/api
 
 #### Backend
 
-- `PORT=4001` - номер порта бэкенд;
+- `PORT=4000` - номер порта бэкенд;
+
+- `HOST=localhost` - номер хоста, по которому запускается сервис;
 
 - `SALT=text` - случайный набор символов для хеширования пароля;
 
@@ -82,6 +84,14 @@ npm run cli -- --generate 10 ./mocks/test-data.tsv http://localhost:3123/api
 
 - `DB_PORT=27017` - порт сервера базы данных;
 
-- `DB_NAME='guitar-shop'` - название базы данных.
+- `DB_NAME='guitar-shop'` - название базы данных;
+
+- `UPLOAD_DIRECTORY=upload` - название директории для загружаемых файлов;
+
+- `STATIC_DIRECTORY=static` - название директории для статичных ресурсов;
+
+- `JWT_SECRET=secret` - строка, которая будет использоваться в процессе шифрования.
 
 ### Количество часов, затраченных на проект
+
+~ N часов

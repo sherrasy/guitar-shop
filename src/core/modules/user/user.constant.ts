@@ -7,3 +7,5 @@ export const PasswordLength = {
   Min:6,
   Max:12,
 };
+
+export const JWT_ALGORITHM = 'HS256';

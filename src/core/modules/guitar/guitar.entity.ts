@@ -1,8 +1,5 @@
-import typegoose, {
-  getModelForClass,
-  defaultClasses
-} from '@typegoose/typegoose';
-import { GuitarType } from '../../../types/guitar-type.enum';
+import typegoose, {getModelForClass, defaultClasses} from '@typegoose/typegoose';
+import { GuitarType } from '../../../types/guitar-type.enum.js';
 
 const { prop, modelOptions } = typegoose;
 
@@ -40,7 +37,7 @@ export class GuitarEntity extends defaultClasses.TimeStamps {
   public price!: number;
 
   @prop({required: true,})
-  public stringsAmoount!: number;
+  public stringsAmount!: number;
 }
 
 export const GuitarModel = getModelForClass(GuitarEntity);

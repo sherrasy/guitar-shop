@@ -1,4 +1,4 @@
-import { GuitarType } from '../../types/guitar-type.enum';
+import { GuitarType } from '../../types/guitar-type.enum.js';
 import { Guitar } from '../../types/guitar.type';
 
 export const createGuitar = (guitarData:string):Guitar=>{
