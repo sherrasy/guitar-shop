@@ -11,6 +11,7 @@ import { ConfigSchema } from '../types/core/config-schema.type.js';
 import { getFullServerPath } from '../core/helpers/common.js';
 import { ControllerInterface } from '../types/core/controller.interface';
 import { ExceptionFilterInterface } from '../types/core/exception-filter.interface';
+import { AuthenticateMiddleware } from '../core/middleware/authenticate.middleware.js';
 
 @injectable()
 export default class Application {
@@ -27,8 +28,12 @@ export default class Application {
     private readonly userController: ControllerInterface,
     @inject(AppComponent.GuitarController)
     private readonly guitarController: ControllerInterface,
-    @inject(AppComponent.ExceptionFilterInterface)
-    private readonly exceptionFilter: ExceptionFilterInterface,
+    @inject(AppComponent.BaseExceptionFilter)
+    private readonly baseExceptionFilter: ExceptionFilterInterface,
+    @inject(AppComponent.HttpErrorExceptionFilter)
+    private readonly httpErrorExceptionFilter: ExceptionFilterInterface,
+    @inject(AppComponent.ValidationExceptionFilter)
+    private readonly validationExceptionFilter: ExceptionFilterInterface,
   ) {
     this.expressApplication = express();
   }
@@ -77,13 +82,16 @@ export default class Application {
       DirectoryPath.Static,
       express.static(this.config.get('STATIC_DIRECTORY'))
     );
-
+    const authenticateMiddleware = new AuthenticateMiddleware(this.config.get('JWT_SECRET'));
+    this.expressApplication.use(authenticateMiddleware.execute.bind(authenticateMiddleware));
     this.logger.info(`${AppPartName.Middleware} ${LoggerInfoMessage.InitDone}`);
   }
 
   private async _initExceptionFilters() {
     this.logger.info(`${AppPartName.Filter} ${LoggerInfoMessage.Init}`);
-    this.expressApplication.use(this.exceptionFilter.catch.bind(this.exceptionFilter));
+    this.expressApplication.use(this.validationExceptionFilter.catch.bind(this.validationExceptionFilter));
+    this.expressApplication.use(this.httpErrorExceptionFilter.catch.bind(this.httpErrorExceptionFilter));
+    this.expressApplication.use(this.baseExceptionFilter.catch.bind(this.baseExceptionFilter));
     this.logger.info(`${AppPartName.Filter} ${LoggerInfoMessage.InitDone}`);
   }
 

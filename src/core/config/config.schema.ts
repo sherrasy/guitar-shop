@@ -65,4 +65,10 @@ export const configSchema = convict<ConfigSchema>({
     env: 'STATIC_DIRECTORY',
     default: 'static'
   },
+  JWT_SECRET: {
+    doc: 'Secret for sign JWT',
+    format: String,
+    env: 'JWT_SECRET',
+    default: null
+  }
 });

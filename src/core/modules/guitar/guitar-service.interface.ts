@@ -10,5 +10,4 @@ export interface GuitarServiceInterface extends DocumentExistsInterface {
   deleteById(guitarId: string): Promise<DocumentType<GuitarEntity> | null>;
   find(count?:number): Promise<DocumentType<GuitarEntity>[]>;
   findById(guitarId: string): Promise<DocumentType<GuitarEntity> | null>;
-  exists(documentId: string): Promise<boolean>;
 }

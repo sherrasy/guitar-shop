@@ -15,7 +15,14 @@ export const HelpMessage = {
 export const ErrorMessage = {
   Fetch: 'Can\'t fetch data from ',
   Import: 'Не удалось импортировать данные. Ошибка: ',
-  Config: 'Can\'t read .env file. Perhaps the file does not exist.'
+  Config: 'Can\'t read .env file. Perhaps the file does not exist.',
+  DbConnect:'Already connected to database',
+  DbConnectFail:'Failed to connect to the database.',
+  DbDisconnect:'Not connected to the database',
+  Unauthorized:'User unauthorized',
+  InvalidToken:'Invalid token',
+  Undefined:'User undefined',
+  NoContent: 'No content'
 }as const;
 
 export const InfoMessage = {

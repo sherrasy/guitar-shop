@@ -4,7 +4,6 @@ import { AppComponent } from '../../../types/app-component.enum.js';
 import { HttpMethod } from '../../../types/http-method.enum.js';
 import { LoggerInterface } from '../../../types/core/logger.interface';
 import { fillDTO } from '../../helpers/common.js';
-import { ParamsDictionary } from 'express-serve-static-core';
 import { ControllerRoute, EntityName, ObjectIdParam } from '../../../utils/constant.js';
 import { LoggerInfoMessage } from '../../logger/logger.constant.js';
 import { GuitarServiceInterface } from './guitar-service.interface.js';
@@ -16,14 +15,9 @@ import { inject, injectable } from 'inversify';
 import { ValidateDTOMiddleware } from '../../middleware/validate-dto.middleware.js';
 import { ValidateObjectIdMiddleware } from '../../middleware/validate-objectId.middleware.js';
 import { DocumentExistsMiddleware } from '../../middleware/document-exists.middleware.js';
-
-type ParamsGuitarDetails =
-  | {
-      guitarId: string;
-    }
-  | ParamsDictionary;
-
-type UnknownRecord = Record<string, unknown>;
+import { UnknownRecord } from '../../../types/unknown-record.type.js';
+import { ParamsGuitarDetails } from '../../../types/request-details.type.js';
+import { PrivateRouteMiddleware } from '../../middleware/private-route.middleware.js';
 
 @injectable()
 export default class GuitarController extends Controller {
@@ -52,6 +46,7 @@ export default class GuitarController extends Controller {
       method: HttpMethod.Post,
       handler: this.create,
       middlewares:[
+        new PrivateRouteMiddleware(),
         new ValidateDTOMiddleware(CreateGuitarDto)
       ]
     });
@@ -61,9 +56,9 @@ export default class GuitarController extends Controller {
       method: HttpMethod.Get,
       handler: this.showGuitar,
       middlewares:[
+        new PrivateRouteMiddleware(),
         new ValidateObjectIdMiddleware(ObjectIdParam.GuitarId),
         new DocumentExistsMiddleware(this.guitarService, EntityName.Guitar, ObjectIdParam.GuitarId)
-
       ]
     });
 
@@ -72,6 +67,7 @@ export default class GuitarController extends Controller {
       method: HttpMethod.Patch,
       handler: this.update,
       middlewares:[
+        new PrivateRouteMiddleware(),
         new ValidateObjectIdMiddleware(ObjectIdParam.GuitarId),
         new ValidateDTOMiddleware(UpdateGuitarDto),
         new DocumentExistsMiddleware(this.guitarService, EntityName.Guitar, ObjectIdParam.GuitarId)
@@ -83,6 +79,7 @@ export default class GuitarController extends Controller {
       method: HttpMethod.Delete,
       handler: this.delete,
       middlewares:[
+        new PrivateRouteMiddleware(),
         new ValidateObjectIdMiddleware(ObjectIdParam.GuitarId),
         new DocumentExistsMiddleware(this.guitarService, EntityName.Guitar, ObjectIdParam.GuitarId)
       ]

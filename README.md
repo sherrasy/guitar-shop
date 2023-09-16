@@ -84,6 +84,8 @@ npm run cli -- --generate 10 ./mocks/test-data.tsv http://localhost:3123/api
 
 - `DB_NAME='guitar-shop'` - название базы данных;
 
-- `UPLOAD_DIRECTORY=upload` - название директории для загружаемых файлов.
+- `UPLOAD_DIRECTORY=upload` - название директории для загружаемых файлов;
+
+- `JWT_SECRET=secret` - строка, которая будет использоваться в процессе шифрования.
 
 ### Количество часов, затраченных на проект

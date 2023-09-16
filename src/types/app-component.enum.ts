@@ -9,5 +9,7 @@ export const AppComponent = {
   GuitarServiceInterface: Symbol.for('GuitarServiceInterface'),
   GuitarModel: Symbol.for('GuitarModel'),
   GuitarController: Symbol.for('GuitarController'),
-  ExceptionFilterInterface: Symbol.for('ExceptionFilterInterface'),
+  BaseExceptionFilter: Symbol.for('BaseExceptionFilter'),
+  ValidationExceptionFilter: Symbol.for('ValidationExceptionFilter'),
+  HttpErrorExceptionFilter: Symbol.for('HttpErrorExceptionFilter'),
 } as const;
