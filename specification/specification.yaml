@@ -55,7 +55,7 @@ paths:
         required: true
 
       responses:
-        "201":
+        "200":
           description: Успешная авторизация.
           content:
             application/json:

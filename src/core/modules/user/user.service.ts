@@ -4,7 +4,9 @@ import CreateUserDto from './dto/create-user.dto.js';
 import {UserServiceInterface} from './user-service.interface.js';
 import { inject, injectable } from 'inversify';
 import { LoggerInterface } from '../../../types/core/logger.interface.js';
-import { AppComponent, LoggerInfoMessage } from '../../../utils/constant.js';
+import { LoggerInfoMessage } from '../../logger/logger.constant.js';
+import { AppComponent } from '../../../types/app-component.enum.js';
+import { EntityName } from '../../../utils/constant.js';
 
 @injectable()
 export default class UserService implements UserServiceInterface {
@@ -19,7 +21,7 @@ export default class UserService implements UserServiceInterface {
 
     const result = await this.userModel.create(user);
 
-    this.logger.info(LoggerInfoMessage.NewData.concat('user'));
+    this.logger.info(LoggerInfoMessage.NewData.concat(EntityName.User));
 
     return result;
   }

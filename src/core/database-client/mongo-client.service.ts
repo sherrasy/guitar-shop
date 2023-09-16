@@ -3,7 +3,9 @@ import { DatabaseClientInterface } from '../../types/core/database-client.interf
 import mongoose, { Mongoose } from 'mongoose';
 import { LoggerInterface } from '../../types/core/logger.interface.js';
 import { setTimeout } from 'node:timers/promises';
-import { AppComponent, DbReconnectParam, LoggerErrorMessage, LoggerInfoMessage } from '../../utils/constant.js';
+import { DbReconnectParam } from '../../utils/constant.js';
+import { LoggerErrorMessage, LoggerInfoMessage } from '../logger/logger.constant.js';
+import { AppComponent } from '../../types/app-component.enum.js';
 
 @injectable()
 export default class MongoClientService implements DatabaseClientInterface{

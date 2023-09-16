@@ -1,3 +1,9 @@
+export const DEFAULT_USER = {
+  name: 'admin',
+  email: 'admin@test.ru',
+  password: 'admin'
+};
+
 export const HelpMessage = {
   Title: ' Программа для подготовки данных для REST API сервера.',
   Example: ' Пример: main.js --<command> [--arguments]  ',
@@ -17,6 +23,11 @@ export const InfoMessage = {
   ImportData: 'Import completed. Rows amount: ',
 }as const;
 
+export const CommandName = {
+  Help:'--help',
+  Generate:'--generate'
+};
+
 export const ChunkSize = {
   Read:16384,
   Write: 2 ** 16
@@ -27,41 +38,26 @@ export const DbReconnectParam = {
   Timeout: 10000
 };
 
-export const DEFAULT_USER = {
-  name: 'admin',
-  email: 'admin@test.ru',
-  password: 'admin'
-};
-
-export const LoggerInfoMessage = {
-  InitApp: 'Application initialization...',
-  LoggerCreation:'Logger created...',
-  Config: '.env file found and successfully parsed.',
-  DbConnect:'Database connection established.',
-  DbConnectInProgress:'Trying to connect to MongoDB...',
-  DbDisconnect:'Database connection closed.',
-  InitDb:'Init database...',
-  InitDbDone:'Init database completed',
-  NewData:'New data created: ',
-}as const;
-
-export const LoggerErrorMessage = {
-  DbConnectFail: 'Failed to connect to the database. Attempt ',
-  DbConnectMultipleFail: 'Unable to establish database connection.',
-}as const;
-
-export const AppComponent = {
-  Application: Symbol.for('Application'),
-  LoggerInterface: Symbol.for('LoggerInterface'),
-  ConfigInterface: Symbol.for('ConfigInterface'),
-  DatabaseClientInterface: Symbol.for('DatabaseClientInterface'),
-  UserServiceInterface: Symbol.for('UserServiceInterface'),
-  UserModel: Symbol.for('UserModel'),
-  GuitarServiceInterface: Symbol.for('GuitarServiceInterface'),
-  GuitarModel: Symbol.for('GuitarModel'),
-} as const;
-
 export const EntityName = {
   User:'User',
   Guitar:'Guitar',
 } as const;
+
+export const AppPartName = {
+  App:'Application',
+  Db:'Database',
+  Server:'Server',
+  Controller:'Controller',
+  Middleware:'Global middleware',
+  Filter:'ExceptionFilters',
+} as const;
+
+export const ControllerRoute = {
+  Main:'/',
+  GuitarsList:'/guitars',
+  Guitar:'/:guitarId',
+  UsersList: '/users',
+  User:'/:userId',
+  Register:'/register',
+  Login:'/login',
+};

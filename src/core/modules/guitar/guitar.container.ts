@@ -1,9 +1,9 @@
 import { Container } from 'inversify';
 import { types } from '@typegoose/typegoose';
-import { AppComponent } from '../../../utils/constant.js';
 import { GuitarEntity, GuitarModel } from './guitar.entity.js';
 import GuitarService from './guitar.service.js';
 import { GuitarServiceInterface } from './guitar-service.interface.js';
+import { AppComponent } from '../../../types/app-component.enum.js';
 
 export function createGuitarContainer() {
   const container = new Container();

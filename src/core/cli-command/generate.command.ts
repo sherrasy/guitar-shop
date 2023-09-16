@@ -3,7 +3,7 @@ import { MockData } from '../../types/mock-data.type.js';
 import chalk from 'chalk';
 import { CliCommandInterface } from '../../types/core/cli-command.interface.js';
 import GuitarGenerator from '../modules/guitar-generator/guitar-generator.js';
-import { DEFAULT_USER, ErrorMessage, InfoMessage } from '../../utils/constant.js';
+import { CommandName, DEFAULT_USER, ErrorMessage, InfoMessage } from '../../utils/constant.js';
 import TSVFileWriter from '../file-writer/tsv-file-writer.js';
 import TSVFileReader from '../file-reader/tsv-file-reader.js';
 import { createGuitar, getErrorMessage, getMongoURI } from '../helpers/index.js';
@@ -20,10 +20,10 @@ import GuitarService from '../modules/guitar/guitar.service.js';
 import { Guitar } from '../../types/guitar.type.js';
 import { ConfigInterface } from '../../types/core/config.interface.js';
 import ConfigService from '../config/config.service.js';
-import { ConfigSchema } from '../config/config.schema.js';
+import { ConfigSchema } from '../../types/core/config-schema.type.js';
 
 export default class GenerateCommand implements CliCommandInterface {
-  public readonly name = '--generate';
+  public readonly name = CommandName.Generate;
 
   private initialData!: MockData;
   private logger: LoggerInterface;
