@@ -2,13 +2,21 @@ import {useRef, useState, FormEvent} from 'react';
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../utils/constant';
 import InputErrorField from './input-error-field';
+import { useAppDispatch } from '../../hooks';
+import { AuthData } from '../../types/auth-data.type';
+import { login } from '../../store/user-data/api-actions';
 
 function LoginForm(): JSX.Element {
   const emailRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
   const [isEmailInvalid, SetIsEmailInvalid] = useState(false);
   const [isPasswordInvalid, SetIsPasswordInvalid] = useState(false);
+  const [isPasswordShown, SetIsPasswordShown] = useState(false);
+  const dispatch = useAppDispatch();
 
+  const onSubmit = (authData: AuthData) => dispatch(login(authData));
+
+  const handleClick = ()=> SetIsPasswordShown((prev)=> !prev);
 
   const checkEmail = ()=>{
     if(emailRef.current === null || emailRef.current.value === ''){
@@ -25,10 +33,10 @@ function LoginForm(): JSX.Element {
   const handleFormSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
     if (emailRef.current !== null && passwordRef.current !== null) {
-      return{
+      onSubmit ({
         email: emailRef.current.value,
         password: passwordRef.current.value,
-      };
+      });
     }
   };
   return (
@@ -61,7 +69,7 @@ function LoginForm(): JSX.Element {
             <label htmlFor="passwordLogin">Введите пароль</label>
             <span>
               <input
-                type="password"
+                type={isPasswordShown ? 'text' : 'password'}
                 placeholder="• • • • • • • • • • • •"
                 id="passwordLogin"
                 name="password"
@@ -71,7 +79,7 @@ function LoginForm(): JSX.Element {
                 onBlur={checkPassword}
                 required
               />
-              <button className="input-login__button-eye" type="button">
+              <button className="input-login__button-eye" type="button" onClick={handleClick}>
                 <svg width="14" height="8" aria-hidden="true">
                   <use xlinkHref="#icon-eye"></use>
                 </svg>

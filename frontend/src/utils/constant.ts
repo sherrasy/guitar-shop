@@ -54,3 +54,29 @@ export enum AuthorizationStatus {
   Unknown = 'UNKNOWN',
 }
 
+export const ApiConnectParam = {
+  Url:'http://localhost:4000',
+  Timeout: 5000
+};
+
+export const ReducerName = {
+  Guitars: 'GUITARS',
+  Guitar: 'GUITAR',
+  User: 'USER',
+} as const;
+
+export const ActionName = {
+  CheckAuth: 'checkAuth',
+  Login: 'login',
+} as const;
+
+export const ApiRoute = {
+  Login: '/users/login',
+  Register: '/users/register',
+} as const;
+
+export const ApiError = {
+  Guitar: 'Failed to load guitar data',
+  Login: 'Failed to login',
+  Unauthorized: 'You\'re not logged in. Some features are not available'
+} as const;

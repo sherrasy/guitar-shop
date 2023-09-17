@@ -8,9 +8,25 @@ import GuitarListPage from '../../pages/guitar-list-page/guitar-list-page';
 import GuitarPage from '../../pages/guitar-page/guitar-page';
 import EditGuitarPage from '../../pages/edit-guitar-page/edit-guitar-page';
 import AddGuitarPage from '../../pages/add-guitar-page/add-guitar-page';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { getAuthCheckedStatus, getIsAuthorized } from '../../store/user-data/selectors';
+import { checkAuth } from '../../store/user-data/api-actions';
+import { useEffect } from 'react';
+import Loader from '../loader/loader';
 
 function App(): JSX.Element {
-  const isAuthorized = true;
+  const isAuthChecked = useAppSelector(getAuthCheckedStatus);
+  const isAuthorized = useAppSelector(getIsAuthorized);
+  const dispatch = useAppDispatch();
+
+  useEffect(()=>{
+    dispatch(checkAuth());
+  },[dispatch]);
+
+  if(!isAuthChecked){
+    return <Loader/>;
+  }
+
   return (
     <Routes>
       <Route path={AppRoute.Login} element={<LoginPage />} />
