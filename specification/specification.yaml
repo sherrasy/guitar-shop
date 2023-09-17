@@ -2,7 +2,7 @@ openapi: 3.1.0
 info:
   title: API сервер для проекта «Guitar Shop».
   description: |-
-    * Список ресурсов и маршрутов сервера «Шесть городов».
+    * Список ресурсов и маршрутов сервера «Guitar Shop».
   license:
     name: MIT
     url: https://opensource.org/licenses/MIT
@@ -308,6 +308,47 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/NotFoundErrorMessage"
+
+  /guitars/{guitarId}/photo:
+    post:
+          tags:
+            - guitars
+          summary: Добавление фото к  товару
+          description: Добавляет фото к товару
+          parameters:
+            - name: X-Token
+              in: header
+              description: Авторизационный токен пользователя
+              required: true
+              schema:
+                type: string
+                example: T2xpdmVyLmNvbm5lckBnbWFpbC5jb20=
+              requestBody:
+                  description: Информация для создания товара.
+                  content:
+                    application/json:
+                      schema:
+                        $ref: '#/components/schemas/guitar'
+                  required: true
+          responses:
+              "201":
+                description: Товар создан.
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/guitar'
+              "400":
+                description: Ошибка тела запроса.
+                content:
+                  application/json:
+                    schema:
+                      $ref: "#/components/schemas/BadRequestErrorMessage"
+              "401":
+                description: Пользователь не авторизован.
+                content:
+                  application/json:
+                    schema:
+                      $ref: "#/components/schemas/NotAuthorizedErrorMessage"
 
 components:
   schemas:

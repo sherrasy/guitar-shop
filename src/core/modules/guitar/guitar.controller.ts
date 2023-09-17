@@ -10,7 +10,6 @@ import { GuitarServiceInterface } from './guitar-service.interface.js';
 import GuitarRdo from './rdo/guitar.rdo.js';
 import UpdateGuitarDto from './dto/update-guitar.js';
 import CreateGuitarDto from './dto/create-guitar.js';
-import { RequestQuery } from '../../../types/request-query.type.js';
 import { inject, injectable } from 'inversify';
 import { ValidateDTOMiddleware } from '../../middleware/validate-dto.middleware.js';
 import { ValidateObjectIdMiddleware } from '../../middleware/validate-objectId.middleware.js';
@@ -22,6 +21,7 @@ import { ConfigInterface } from '../../../types/core/config.interface.js';
 import { ConfigSchema } from '../../../types/core/config-schema.type.js';
 import { UploadFileMiddleware } from '../../middleware/upload-file.middleware.js';
 import UploadPhotoRdo from './rdo/upload-photo.rdo.js';
+import { GuitarQuery } from './query/guitar-query.js';
 @injectable()
 export default class GuitarController extends Controller {
   private readonly name = 'GuitarController';
@@ -101,12 +101,10 @@ export default class GuitarController extends Controller {
   }
 
   public async index(
-    {
-      query,
-    }: Request<UnknownRecord, UnknownRecord, UnknownRecord, RequestQuery>,
+    req: Request<UnknownRecord, UnknownRecord, GuitarQuery>,
     res: Response
   ): Promise<void> {
-    const guitars = await this.guitarService.find(query.limit);
+    const guitars = await this.guitarService.find(req.query);
     const guitarsToResponse = fillDTO(GuitarRdo, guitars);
     this.ok(res, guitarsToResponse);
   }

@@ -21,8 +21,6 @@ export default class CreateGuitarDto {
   })
   public type!: GuitarType;
 
-  public photo!: string;
-
   @Length(VendorLength.Min, VendorLength.Max, {
     message: `Minimum vendor length must be ${VendorLength.Min}, maximum ${VendorLength.Max}`,
   })

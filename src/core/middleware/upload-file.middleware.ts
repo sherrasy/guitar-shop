@@ -3,6 +3,7 @@ import multer, { diskStorage } from 'multer';
 import { extension } from 'mime-types';
 import { NextFunction, Request, Response } from 'express';
 import { MiddlewareInterface } from '../../types/core/middleware.interface';
+import { ErrorMessage, VALID_MIMETYPES } from '../../utils/constant.js';
 
 export class UploadFileMiddleware implements MiddlewareInterface {
   constructor(
@@ -16,8 +17,8 @@ export class UploadFileMiddleware implements MiddlewareInterface {
       filename: (_req, file, callback) => {
         let error:Error|null = null;
         const fileExtentions = extension(file.mimetype);
-        if(!fileExtentions){
-          error = new Error ('Wrong file mimetype');
+        if(!fileExtentions || !VALID_MIMETYPES.includes(fileExtentions)){
+          error = new Error (ErrorMessage.InvalidMimetype);
         }
         const filename = nanoid();
         callback(error, `${filename}.${fileExtentions}`);

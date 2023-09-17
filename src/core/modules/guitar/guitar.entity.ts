@@ -1,5 +1,6 @@
 import typegoose, {getModelForClass, defaultClasses} from '@typegoose/typegoose';
 import { GuitarType } from '../../../types/guitar-type.enum.js';
+import { PhotoUploadParam } from '../../../utils/constant.js';
 
 const { prop, modelOptions } = typegoose;
 
@@ -20,7 +21,7 @@ export class GuitarEntity extends defaultClasses.TimeStamps {
   @prop()
   public createdDate!: Date;
 
-  @prop({ required: true,})
+  @prop({ default: PhotoUploadParam.DefaultImage})
   public photo!: string;
 
   @prop({
