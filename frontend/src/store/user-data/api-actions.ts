@@ -1,12 +1,14 @@
-import {AxiosInstance} from 'axios';
+import {AxiosInstance, AxiosError} from 'axios';
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import {saveToken} from '../../services/token';
 import { toast } from 'react-toastify';
 import { AppDispatch, State } from '../../types/state.type';
 import { UserData } from '../../types/user-data.type';
-import { ActionName, ApiError, ApiRoute, AppRoute, ReducerName } from '../../utils/constant';
+import { ActionName, ApiRoute, AppRoute, ReducerName } from '../../utils/constant';
 import { AuthData } from '../../types/auth-data.type';
 import { redirectToRoute } from '../action';
+import CreateUserDto from '../../dto/user/create-user.dto';
+import { AxiosErrorResponse } from '../../types/axios-error-response.type';
 
 
 export const checkAuth = createAsyncThunk<UserData, undefined, {
@@ -20,6 +22,8 @@ export const checkAuth = createAsyncThunk<UserData, undefined, {
       const {data} = await api.get<UserData>(ApiRoute.Login);
       return data;
     }catch(error){
+      const axiosError = error as AxiosError<AxiosErrorResponse>;
+      toast.error(axiosError.response?.data.message, {toastId:'check'});
       return Promise.reject(error);
     }
   }
@@ -37,8 +41,27 @@ export const login = createAsyncThunk<UserData|void, AuthData, {
       saveToken(data.token);
       dispatch(redirectToRoute(AppRoute.List));
       return data;}
-    catch{
-      toast.error(ApiError.Login, {toastId:'login'});
+    catch(error){
+      const axiosError = error as AxiosError<AxiosErrorResponse>;
+      toast.error(axiosError.response?.data.message, {toastId:'login'});
+    }
+  },
+);
+
+export const register = createAsyncThunk< void, AuthData, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  `${ReducerName.User}/${ActionName.Login}`,
+  async (authData, { dispatch, extra: api}) => {
+    try{
+      await api.post<CreateUserDto>(ApiRoute.Register, authData);
+      dispatch(redirectToRoute(AppRoute.Login));
+    }
+    catch(error){
+      const axiosError = error as AxiosError<AxiosErrorResponse>;
+      toast.error(axiosError.response?.data.message, {toastId:'register'});
     }
   },
 );

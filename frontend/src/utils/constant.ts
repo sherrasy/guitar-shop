@@ -68,15 +68,17 @@ export const ReducerName = {
 export const ActionName = {
   CheckAuth: 'checkAuth',
   Login: 'login',
+  Register: 'register',
 } as const;
 
 export const ApiRoute = {
   Login: '/users/login',
   Register: '/users/register',
+  GuitarList: '/guitars',
+  Guitar: '/:guitarId',
 } as const;
 
-export const ApiError = {
-  Guitar: 'Failed to load guitar data',
-  Login: 'Failed to login',
-  Unauthorized: 'You\'re not logged in. Some features are not available'
+export const ValidationPattern = {
+  Email: /^([a-z0-9_.-]+)@([\da-z.-]+).([a-z.]{2,6})$/,
+  Password: /([0-9].*[a-zA-Z])|([a-zA-Z].*[0-9])/,
 } as const;

@@ -1,12 +1,17 @@
 import { Link, useLocation } from 'react-router-dom';
 import { AppRoute } from '../../utils/constant';
+import { getIsAuthorized, getUserData } from '../../store/user-data/selectors';
+import { useAppSelector } from '../../hooks';
 
 function Header(): JSX.Element {
   const location = useLocation();
   const isMain = location.pathname === AppRoute.Login;
+  const isAuthorized = useAppSelector(getIsAuthorized);
+  const userData = useAppSelector(getUserData);
+  const username = userData ? userData.name : 'Имя';
   return (
     <div>
-      <header className="header" id="header">
+      <header className={isAuthorized ? 'header--admin header' : 'header'} id="header">
         <div className="container">
           <div className="header__wrapper">
             {isMain ? (
@@ -50,7 +55,7 @@ function Header(): JSX.Element {
               </ul>
             </nav>
             <div className="header__container">
-              <span className="header__user-name">Имя</span>
+              <span className="header__user-name">{username}</span>
               <Link
                 className="header__link"
                 to="login.html"

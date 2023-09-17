@@ -1,10 +1,11 @@
 import {useRef, useState, FormEvent} from 'react';
 import { Link } from 'react-router-dom';
-import { AppRoute } from '../../utils/constant';
+import { AppRoute, ValidationPattern } from '../../utils/constant';
 import InputErrorField from './input-error-field';
 import { useAppDispatch } from '../../hooks';
 import { AuthData } from '../../types/auth-data.type';
 import { login } from '../../store/user-data/api-actions';
+import { checkValidity } from '../../utils/helpers';
 
 function LoginForm(): JSX.Element {
   const emailRef = useRef<HTMLInputElement | null>(null);
@@ -12,6 +13,9 @@ function LoginForm(): JSX.Element {
   const [isEmailInvalid, SetIsEmailInvalid] = useState(false);
   const [isPasswordInvalid, SetIsPasswordInvalid] = useState(false);
   const [isPasswordShown, SetIsPasswordShown] = useState(false);
+  const [isErrorShown, SetIsErrorShown] = useState(false);
+  const errorMessage = 'Возникла ошибка входа. Проверьте введенные данные и попробуйте снова';
+
   const dispatch = useAppDispatch();
 
   const onSubmit = (authData: AuthData) => dispatch(login(authData));
@@ -19,24 +23,36 @@ function LoginForm(): JSX.Element {
   const handleClick = ()=> SetIsPasswordShown((prev)=> !prev);
 
   const checkEmail = ()=>{
-    if(emailRef.current === null || emailRef.current.value === ''){
+    if(emailRef.current?.value === ''){
       SetIsEmailInvalid(true);
+      return false;
     }
+    return true;
   };
 
   const checkPassword = ()=>{
-    if(passwordRef.current === null || passwordRef.current.value === ''){
+    if (passwordRef.current?.value === ''){
       SetIsPasswordInvalid(true);
+      return false;
     }
+    return true;
+
   };
 
   const handleFormSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
-    if (emailRef.current !== null && passwordRef.current !== null) {
-      onSubmit ({
-        email: emailRef.current.value,
-        password: passwordRef.current.value,
-      });
+    if (emailRef.current && passwordRef.current ) {
+      const isEmailValid = checkEmail() && checkValidity(emailRef.current, ValidationPattern.Email);
+      const isPasswordValid = checkPassword() && checkValidity(passwordRef.current, ValidationPattern.Password);
+      if (isEmailValid && isPasswordValid) {
+        onSubmit ({
+          email: emailRef.current.value,
+          password: passwordRef.current.value,
+        });
+        SetIsErrorShown(false);
+      }else{
+        SetIsErrorShown(true);
+      }
     }
   };
   return (
@@ -94,6 +110,7 @@ function LoginForm(): JSX.Element {
                 Войти
           </button>
         </form>
+        {isErrorShown && <p className="input-login__error">{errorMessage}</p>}
       </section>
     </div>
   );
