@@ -4,6 +4,8 @@ export const DEFAULT_USER = {
   password: 'admin123'
 };
 
+export const VALID_MIMETYPES = ['jpeg','png'];
+
 export const HelpMessage = {
   Title: ' Программа для подготовки данных для REST API сервера.',
   Example: ' Пример: main.js --<command> [--arguments]  ',
@@ -19,6 +21,7 @@ export const ErrorMessage = {
   DbConnect:'Already connected to database',
   DbConnectFail:'Failed to connect to the database.',
   DbDisconnect:'Not connected to the database',
+  InvalidMimetype:'Wrong file mimetype',
   Unauthorized:'User unauthorized',
   InvalidToken:'Invalid token',
   Undefined:'User undefined',
@@ -78,7 +81,7 @@ export const MiddlewareName = {
   DocumentExists:'DocumentExistsMiddleware',
   ValidateObjectId:'ValidateObjectIdMiddleware',
   Authenticate:'AuthenticateMiddleware',
-  PrivateRoute:'PrivateRouteMiddleware',
+  PrivateRoute:'PrivateRouteMiddleware'
 } as const;
 
 export const ExceptionFilterName = {
@@ -96,3 +99,4 @@ export const PhotoUploadParam = {
   ResourseField:'photo',
   DefaultImage:'catalog-product-0.png',
 } as const;
+
