@@ -1,6 +1,8 @@
 export const STRINGS_AMOUNTS = [4, 6, 7, 12];
 export const DEFAULT_GUITARS_AMOUNT = 7;
 
+export const DEFAULT_PAGE = 0;
+
 export const GuitarNameLength = {
   Min:10,
   Max:100,
@@ -20,3 +22,7 @@ export const PriceLimit = {
   Max:1000000,
 };
 
+export const DefaultSortParam = {
+  Direction: 'asc',
+  Type: 'createdDate',
+} as const;
