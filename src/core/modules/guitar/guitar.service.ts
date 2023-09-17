@@ -53,12 +53,11 @@ export default class GuitarService implements GuitarServiceInterface {
     const currentSortType = sortBy || DefaultSortParam.Type;
     const currentSortDirection = sortDirection || DefaultSortParam.Direction;
     if (type) {
-      filterParams.type = type;
+      filterParams.type = type.split(',');
     }
     if (stringsAmount) {
-      filterParams.stringsAmount = stringsAmount;
+      filterParams.stringsAmount = stringsAmount.toString().split(',').map(Number);
     }
-
     return this.guitarModel
       .find(filterParams)
       .sort({[currentSortType]:currentSortDirection})
