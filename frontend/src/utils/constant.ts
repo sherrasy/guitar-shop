@@ -51,7 +51,7 @@ export const GuitarTab = {
 export enum AuthorizationStatus {
   Auth = 'AUTH',
   NoAuth = 'NO_AUTH',
-  Unknown = 'UNKNOWN',
+  Unknown = 'UNKNOWN'
 }
 
 export const ApiConnectParam = {
@@ -62,20 +62,22 @@ export const ApiConnectParam = {
 export const ReducerName = {
   Guitars: 'GUITARS',
   Guitar: 'GUITAR',
-  User: 'USER',
+  User: 'USER'
 } as const;
 
 export const ActionName = {
   CheckAuth: 'checkAuth',
   Login: 'login',
   Register: 'register',
+  FetchGuitars: 'fetch-guitars',
+  FetchGuitar: 'fetch-guitar'
 } as const;
 
 export const ApiRoute = {
   Login: '/users/login',
   Register: '/users/register',
   GuitarList: '/guitars',
-  Guitar: '/:guitarId',
+  Guitar: '/:guitarId'
 } as const;
 
 export const ValidationPattern = {

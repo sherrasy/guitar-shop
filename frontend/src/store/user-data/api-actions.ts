@@ -23,7 +23,7 @@ export const checkAuth = createAsyncThunk<UserData, undefined, {
       return data;
     }catch(error){
       const axiosError = error as AxiosError<AxiosErrorResponse>;
-      toast.error(axiosError.response?.data.message, {toastId:'check'});
+      toast.error(axiosError.response?.data.message, {toastId:ActionName.CheckAuth});
       return Promise.reject(error);
     }
   }
@@ -43,7 +43,7 @@ export const login = createAsyncThunk<UserData|void, AuthData, {
       return data;}
     catch(error){
       const axiosError = error as AxiosError<AxiosErrorResponse>;
-      toast.error(axiosError.response?.data.message, {toastId:'login'});
+      toast.error(axiosError.response?.data.message, {toastId:ActionName.Login});
     }
   },
 );
@@ -53,7 +53,7 @@ export const register = createAsyncThunk< void, AuthData, {
   state: State;
   extra: AxiosInstance;
 }>(
-  `${ReducerName.User}/${ActionName.Login}`,
+  `${ReducerName.User}/${ActionName.Register}`,
   async (authData, { dispatch, extra: api}) => {
     try{
       await api.post<CreateUserDto>(ApiRoute.Register, authData);
@@ -61,7 +61,7 @@ export const register = createAsyncThunk< void, AuthData, {
     }
     catch(error){
       const axiosError = error as AxiosError<AxiosErrorResponse>;
-      toast.error(axiosError.response?.data.message, {toastId:'register'});
+      toast.error(axiosError.response?.data.message, {toastId:ActionName.Register});
     }
   },
 );

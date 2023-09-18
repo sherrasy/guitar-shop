@@ -4,10 +4,25 @@ import Footer from '../../components/footer/footer';
 import GuitarList from '../../components/guitar-list/guitar-list';
 import Header from '../../components/header/header';
 import { AppRoute, FormStatus } from '../../utils/constant';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { getGuitarsData, getGuitarsStatus } from '../../store/guitars-data/selectors';
+import { fetchGuitars } from '../../store/guitars-data/api-actions';
+import Loader from '../../components/loader/loader';
+import { useEffect } from 'react';
 
 function GuitarListPage(): JSX.Element {
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+  const isListLoading = useAppSelector(getGuitarsStatus);
+  const guitarsData = useAppSelector(getGuitarsData);
 
+  useEffect(() => {
+    dispatch(fetchGuitars());
+  }, [dispatch]);
+
+  if(isListLoading ){
+    return <Loader/>;
+  }
   return (
     <>
       <Header />
@@ -65,7 +80,7 @@ function GuitarListPage(): JSX.Element {
                   <button className="catalog-sort__order-button catalog-sort__order-button--down catalog-sort__order-button--active" aria-label="По убыванию"></button>
                 </div>
               </div>
-              <GuitarList/>
+              <GuitarList guitars = {guitarsData}/>
             </div>
             <button className="button product-list__button button--red button--big" onClick={()=>navigate(`${AppRoute.List}/${FormStatus.Add}`)}>Добавить новый товар</button>
             <div className="pagination product-list__pagination">
