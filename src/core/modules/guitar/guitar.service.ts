@@ -66,6 +66,10 @@ export default class GuitarService implements GuitarServiceInterface {
       .exec();
   }
 
+  // public async findAll(): Promise<DocumentType<GuitarEntity>[]> {
+  //   return this.guitarModel.find().exec();
+  // }
+
   public async findById(
     guitarId: string
   ): Promise<DocumentType<GuitarEntity> | null> {
