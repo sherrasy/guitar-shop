@@ -34,11 +34,13 @@ function GuitarPage(): JSX.Element {
   return (
     <div>
       <Header />
-      <div className="container">
-        <h1 className="page-content__title title title--bigger">Товар</h1>
-        <Breadcrumbs/>
-        <GuitarCard guitar={guitar}/>
-      </div>
+      <main className="page-content">
+        <div className="container">
+          <h1 className="page-content__title title title--bigger">Товар</h1>
+          <Breadcrumbs/>
+          <GuitarCard guitar={guitar}/>
+        </div>
+      </main>
       <Footer />
     </div>
   );

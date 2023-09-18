@@ -20,7 +20,7 @@ function Header(): JSX.Element {
                   className="logo__img"
                   width="70"
                   height="70"
-                  src="./img/svg/logo.svg"
+                  src="/img/svg/logo.svg"
                   alt="Логотип"
                 />
               </span>
@@ -30,7 +30,7 @@ function Header(): JSX.Element {
                   className="logo__img"
                   width="70"
                   height="70"
-                  src="./img/svg/logo.svg"
+                  src="/img/svg/logo.svg"
                   alt="Логотип"
                 />
               </Link>
@@ -58,7 +58,7 @@ function Header(): JSX.Element {
               <span className="header__user-name">{username}</span>
               <Link
                 className="header__link"
-                to="login.html"
+                to={AppRoute.Login}
                 aria-label="Перейти в личный кабинет"
               >
                 <svg

@@ -15,9 +15,9 @@ export default class UpdateGuitarDto {
   @IsOptional()
   public description?: string;
 
-  @IsDateString({}, { message: 'postDate must be valid ISO date' })
+  @IsDateString({}, { message: 'createdDate must be valid ISO date' })
   @IsOptional()
-  public createdDate?: Date;
+  public createdDate?: string;
 
   @IsEnum(GuitarType, {
     message: `Type must be one of ${Object.values(GuitarType).join(', ')}`,

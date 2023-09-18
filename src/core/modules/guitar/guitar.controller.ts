@@ -22,7 +22,8 @@ import { ConfigSchema } from '../../../types/core/config-schema.type.js';
 import { UploadFileMiddleware } from '../../middleware/upload-file.middleware.js';
 import UploadPhotoRdo from './rdo/upload-photo.rdo.js';
 import { GuitarQuery } from './query/guitar-query.js';
-// import { DEFAULT_GUITARS_AMOUNT } from './guitar.constant.js';
+import { DEFAULT_GUITARS_AMOUNT } from './guitar.constant.js';
+
 @injectable()
 export default class GuitarController extends Controller {
   private readonly name = 'GuitarController';
@@ -47,11 +48,11 @@ export default class GuitarController extends Controller {
       handler: this.index,
     });
 
-    // this.addRoute({
-    //   path: ControllerRoute.GuitarsPagesAmount,
-    //   method: HttpMethod.Get,
-    //   handler: this.showPages,
-    // });
+    this.addRoute({
+      path: ControllerRoute.GuitarsPagesAmount,
+      method: HttpMethod.Get,
+      handler: this.showPages,
+    });
 
     this.addRoute({
       path: ControllerRoute.Main,
@@ -116,14 +117,14 @@ export default class GuitarController extends Controller {
     this.ok(res, guitarsToResponse);
   }
 
-  // public async showPages(
-  //   _req: Request<UnknownRecord, UnknownRecord, UnknownRecord>,
-  //   res: Response
-  // ): Promise<void> {
-  //   const guitars = await this.guitarService.findAll();
-  //   const pages = Math.round(guitars.length / DEFAULT_GUITARS_AMOUNT);
-  //   this.ok(res, pages);
-  // }
+  public async showPages(
+    _req: Request<UnknownRecord, UnknownRecord, UnknownRecord>,
+    res: Response
+  ): Promise<void> {
+    const guitars = await this.guitarService.findAll();
+    const pages = Math.ceil(guitars.length / DEFAULT_GUITARS_AMOUNT);
+    this.ok(res, pages);
+  }
 
   public async create(
     { body }: Request<UnknownRecord, UnknownRecord, CreateGuitarDto>,

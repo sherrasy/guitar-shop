@@ -7,13 +7,15 @@ function AddGuitarPage(): JSX.Element {
   return (
     <>
       <Header />
-      <section className="add-item">
-        <div className="container">
-          <h1 className="add-item__title">Новый товар</h1>
-          <Breadcrumbs/>
-          <GuitarForm status={'add'}/>
-        </div>
-      </section>
+      <main className="page-content">
+        <section className="add-item">
+          <div className="container">
+            <h1 className="add-item__title">Новый товар</h1>
+            <Breadcrumbs/>
+            <GuitarForm status={'add'}/>
+          </div>
+        </section>
+      </main>
       <Footer />
     </>
   );

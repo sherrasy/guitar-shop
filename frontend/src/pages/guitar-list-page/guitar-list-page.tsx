@@ -30,6 +30,7 @@ function GuitarListPage(): JSX.Element {
       <main className="page-content">
         <section className="product-list">
           <div className="container">
+            <h1 className="product-list__title">Список товаров</h1>
             <Breadcrumbs/>
             <div className="catalog">
               <form className="catalog-filter" action="#" method="post">

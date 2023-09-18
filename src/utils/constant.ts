@@ -69,7 +69,7 @@ export const AppPartName = {
 export const ControllerRoute = {
   Main:'/',
   GuitarsList:'/guitars',
-  // GuitarsFullList:'/show-pages',
+  GuitarsPagesAmount:'/show-pages',
   Guitar:'/:guitarId',
   UsersList: '/users',
   User:'/:userId',

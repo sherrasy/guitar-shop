@@ -7,13 +7,15 @@ function EditGuitarPage(): JSX.Element {
   return (
     <>
       <Header />
-      <section className="edit-item">
-        <div className="container">
-          <h1 className="edit-item__title">СURT Z30 Plus</h1>
-          <Breadcrumbs/>
-          <GuitarForm status={'edit'}/>
-        </div>
-      </section>
+      <main className="page-content">
+        <section className="edit-item">
+          <div className="container">
+            <h1 className="edit-item__title">СURT Z30 Plus</h1>
+            <Breadcrumbs/>
+            <GuitarForm status={'edit'}/>
+          </div>
+        </section>
+      </main>
       <Footer />
     </>
   );

@@ -10,7 +10,7 @@ export interface GuitarServiceInterface extends DocumentExistsInterface {
   updateById(guitarId: string, dto:UpdateGuitarDto): Promise<DocumentType<GuitarEntity> | null>;
   deleteById(guitarId: string): Promise<DocumentType<GuitarEntity> | null>;
   find(query: GuitarQuery): Promise<DocumentType<GuitarEntity>[]>;
-  // findAll(): Promise<DocumentType<GuitarEntity>[]>;
+  findAll(): Promise<DocumentType<GuitarEntity>[]>;
   findById(guitarId: string): Promise<DocumentType<GuitarEntity> | null>;
   exists(documentId: string): Promise<boolean>;
 }

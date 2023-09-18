@@ -1,6 +1,7 @@
 import typegoose, {getModelForClass, defaultClasses} from '@typegoose/typegoose';
 import { GuitarType } from '../../../types/guitar-type.enum.js';
 import { DEFAULT_STATIC_IMAGES } from '../../../utils/constant.js';
+import dayjs from 'dayjs';
 
 const { prop, modelOptions } = typegoose;
 
@@ -18,8 +19,8 @@ export class GuitarEntity extends defaultClasses.TimeStamps {
   @prop({ required: true, trim: true })
   public description!: string;
 
-  @prop()
-  public createdDate!: Date;
+  @prop({default: dayjs().toISOString()})
+  public createdDate!: string;
 
   @prop({ default: DEFAULT_STATIC_IMAGES[0]})
   public photo!: string;

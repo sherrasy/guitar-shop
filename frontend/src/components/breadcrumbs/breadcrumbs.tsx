@@ -9,7 +9,7 @@ function Breadcrumbs(): JSX.Element {
       <ul className="breadcrumbs page-content__breadcrumbs">
         <li className="breadcrumbs__item">
           <Link className="link" to={AppRoute.Login}>
-            Главная
+            Вход
           </Link>
         </li>
         <li className="breadcrumbs__item">

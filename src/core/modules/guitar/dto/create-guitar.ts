@@ -13,8 +13,8 @@ export default class CreateGuitarDto {
   })
   public description!: string;
 
-  @IsDateString({}, { message: 'postDate must be valid ISO date' })
-  public createdDate!: Date;
+  @IsDateString({}, { message: 'createdDate must be valid ISO date' })
+  public createdDate!: string;
 
   @IsEnum(GuitarType, {
     message: `Type must be one of ${Object.values(GuitarType).join(', ')}`,

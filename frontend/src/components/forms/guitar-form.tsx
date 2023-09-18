@@ -1,8 +1,13 @@
+import { useNavigate } from 'react-router-dom';
+import { AppRoute } from '../../utils/constant';
+
 type GuitarFormProps = {
   status:string;
 }
 
 function GuitarForm({status}:GuitarFormProps): JSX.Element {
+  const navigate = useNavigate();
+  const handleBackClick = () => navigate(AppRoute.List);
   return (
     <div>
       <form className="add-item__form" action="#" method="get">
@@ -69,7 +74,7 @@ function GuitarForm({status}:GuitarFormProps): JSX.Element {
         </div>
         <div className="add-item__form-buttons-wrap">
           <button className="button button--small add-item__form-button" type="submit">Сохранить изменения</button>
-          <button className="button button--small add-item__form-button" type="button">Вернуться к списку товаров</button>
+          <button className="button button--small add-item__form-button" type="button" onClick={handleBackClick}>Вернуться к списку товаров</button>
         </div>
       </form>
     </div>

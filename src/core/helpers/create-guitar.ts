@@ -8,7 +8,7 @@ export const createGuitar = (guitarData:string):Guitar=>{
   return {
     name,
     description,
-    createdDate: new Date(createdDate),
+    createdDate,
     photo,
     type: type as GuitarType,
     vendor,
