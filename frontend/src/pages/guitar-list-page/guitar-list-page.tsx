@@ -5,7 +5,7 @@ import GuitarList from '../../components/guitar-list/guitar-list';
 import Header from '../../components/header/header';
 import { AppRoute, FormStatus } from '../../utils/constant';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { getGuitarsData, getGuitarsStatus } from '../../store/guitars-data/selectors';
+import { getGuitars, getGuitarsStatus } from '../../store/guitars-data/selectors';
 import { fetchGuitars } from '../../store/guitars-data/api-actions';
 import Loader from '../../components/loader/loader';
 import { useEffect } from 'react';
@@ -15,7 +15,7 @@ function GuitarListPage(): JSX.Element {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const isListLoading = useAppSelector(getGuitarsStatus);
-  const guitarsData = useAppSelector(getGuitarsData);
+  const guitarsData = useAppSelector(getGuitars);
 
   useEffect(() => {
     dispatch(fetchGuitars());

@@ -1,3 +1,4 @@
+export const API_ERROR_MESSAGE = 'You\'re not logged in. Some features are not available';
 export const UsernameLength = {
   Min:1,
   Max:15,
@@ -69,15 +70,14 @@ export const ActionName = {
   CheckAuth: 'checkAuth',
   Login: 'login',
   Register: 'register',
-  FetchGuitars: 'fetch-guitars',
-  FetchGuitar: 'fetch-guitar'
+  FetchGuitars: 'fetchGuitars',
+  FetchGuitar: 'fetchGuitarById'
 } as const;
 
 export const ApiRoute = {
   Login: '/users/login',
   Register: '/users/register',
   GuitarList: '/guitars',
-  Guitar: '/:guitarId'
 } as const;
 
 export const ValidationPattern = {
