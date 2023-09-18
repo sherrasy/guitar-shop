@@ -48,7 +48,7 @@ export const login = createAsyncThunk<UserData|void, AuthData, {
   },
 );
 
-export const register = createAsyncThunk< void, AuthData, {
+export const register = createAsyncThunk< void, CreateUserDto, {
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;

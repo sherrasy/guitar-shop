@@ -10,8 +10,8 @@ import { ConfigInterface } from '../../types/core/config.interface';
 import { ConfigSchema } from '../../types/core/config-schema.type';
 import { UnknownRecord } from '../../types/unknown-record.type';
 import { getFullServerPath } from '../helpers/common.js';
-import { PhotoUploadParam } from '../../utils/constant.js';
 import { transformObject } from '../helpers/transform-object.js';
+import { PHOTO_RESOURSE_FIELD } from '../../utils/constant.js';
 
 @injectable()
 export abstract class Controller implements ControllerInterface {
@@ -40,7 +40,7 @@ export abstract class Controller implements ControllerInterface {
   protected addStaticPath(data: UnknownRecord): void {
     const fullServerPath = getFullServerPath(this.configService.get('HOST'), this.configService.get('PORT'));
     transformObject(
-      PhotoUploadParam.ResourseField,
+      PHOTO_RESOURSE_FIELD,
       `${fullServerPath}/${this.configService.get('STATIC_DIRECTORY')}`,
       `${fullServerPath}/${this.configService.get('UPLOAD_DIRECTORY')}`,
       data

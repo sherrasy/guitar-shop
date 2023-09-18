@@ -4,7 +4,7 @@ import { AppComponent } from '../../../types/app-component.enum.js';
 import { HttpMethod } from '../../../types/http-method.enum.js';
 import { LoggerInterface } from '../../../types/core/logger.interface';
 import { fillDTO } from '../../helpers/common.js';
-import { ControllerRoute, EntityName, ObjectIdParam, PhotoUploadParam } from '../../../utils/constant.js';
+import { ControllerRoute, EntityName, ObjectIdParam, PHOTO_RESOURSE_FIELD } from '../../../utils/constant.js';
 import { LoggerInfoMessage } from '../../logger/logger.constant.js';
 import { GuitarServiceInterface } from './guitar-service.interface.js';
 import GuitarRdo from './rdo/guitar.rdo.js';
@@ -97,12 +97,12 @@ export default class GuitarController extends Controller {
       ]
     });
     this.addRoute({
-      path: ControllerRoute.Guitar.concat('/', PhotoUploadParam.ResourseField),
+      path: ControllerRoute.Guitar.concat('/', PHOTO_RESOURSE_FIELD),
       method: HttpMethod.Post,
       handler: this.uploadPhoto,
       middlewares: [
         new ValidateObjectIdMiddleware(ObjectIdParam.GuitarId),
-        new UploadFileMiddleware(this.configService.get('UPLOAD_DIRECTORY'), PhotoUploadParam.ResourseField),
+        new UploadFileMiddleware(this.configService.get('UPLOAD_DIRECTORY'), PHOTO_RESOURSE_FIELD),
       ]
     });
   }
