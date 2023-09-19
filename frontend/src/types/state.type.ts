@@ -21,4 +21,5 @@ export type GuitarState = {
 export type GuitarsState = {
   guitars: Guitars;
   isGuitarsLoading: boolean;
+  pages:number|null;
  }

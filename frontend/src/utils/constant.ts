@@ -28,6 +28,12 @@ export const PriceLimit = {
   Max:1000000,
 };
 
+export const PaginationParam = {
+  DefaultPage: 1,
+  NextPage: 2,
+  DefaultAmount: 3,
+};
+
 export const StringsAmounts = [4,6,7,12];
 
 export const ImageTypes = ['jpeg','png'];
@@ -71,6 +77,7 @@ export const ActionName = {
   Login: 'login',
   Register: 'register',
   FetchGuitars: 'fetchGuitars',
+  FetchPagesAmount: 'fetchPagesAmount',
   FetchGuitar: 'fetchGuitarById'
 } as const;
 
@@ -78,6 +85,7 @@ export const ApiRoute = {
   Login: '/users/login',
   Register: '/users/register',
   GuitarList: '/guitars',
+  PagesAmount: '/guitars/show-pages',
 } as const;
 
 export const ValidationPattern = {

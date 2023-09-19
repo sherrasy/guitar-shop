@@ -3,12 +3,12 @@ import Breadcrumbs from '../../components/breadcrumbs/breadcrumbs';
 import Footer from '../../components/footer/footer';
 import GuitarList from '../../components/guitar-list/guitar-list';
 import Header from '../../components/header/header';
-import { AppRoute, FormStatus } from '../../utils/constant';
+import { AppRoute, FormStatus, PaginationParam } from '../../utils/constant';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { getGuitars, getGuitarsStatus } from '../../store/guitars-data/selectors';
-import { fetchGuitars } from '../../store/guitars-data/api-actions';
+import { fetchGuitars, fetchPagesAmount } from '../../store/guitars-data/api-actions';
 import Loader from '../../components/loader/loader';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import Pagination from '../../components/pagination/pagination';
 
 function GuitarListPage(): JSX.Element {
@@ -16,14 +16,19 @@ function GuitarListPage(): JSX.Element {
   const dispatch = useAppDispatch();
   const isListLoading = useAppSelector(getGuitarsStatus);
   const guitarsData = useAppSelector(getGuitars);
+  const [currentPage, setCurrentPage] = useState(PaginationParam.DefaultPage);
 
   useEffect(() => {
-    dispatch(fetchGuitars());
-  }, [dispatch]);
+    dispatch(fetchGuitars(currentPage));
+    dispatch(fetchPagesAmount());
+  }, [dispatch, currentPage]);
 
   if(isListLoading ){
     return <Loader/>;
   }
+
+  const handleChangePage = (page:number)=>setCurrentPage(page);
+
   return (
     <>
       <Header />
@@ -85,7 +90,7 @@ function GuitarListPage(): JSX.Element {
               <GuitarList guitars = {guitarsData}/>
             </div>
             <button className="button product-list__button button--red button--big" onClick={()=>navigate(`${AppRoute.List}/${FormStatus.Add}`)}>Добавить новый товар</button>
-            <Pagination/>
+            <Pagination currentPage={currentPage} handleChangePage={handleChangePage}/>
           </div>
         </section>
       </main>
