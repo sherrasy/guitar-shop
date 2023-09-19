@@ -1,4 +1,5 @@
-export const API_ERROR_MESSAGE = 'You\'re not logged in. Some features are not available';
+export const DEFAULT_PAGE_SERVER = 0;
+
 export const UsernameLength = {
   Min:1,
   Max:15,
@@ -72,13 +73,21 @@ export const ReducerName = {
   User: 'USER'
 } as const;
 
+export const ApiErrosMessage = {
+  Unauthorized: 'You\'re not logged in. Some features are not available',
+  FetchPagesError:'Can`t get pages data'
+} as const;
+
 export const ActionName = {
   CheckAuth: 'checkAuth',
   Login: 'login',
   Register: 'register',
   FetchGuitars: 'fetchGuitars',
   FetchPagesAmount: 'fetchPagesAmount',
-  FetchGuitar: 'fetchGuitarById'
+  FetchGuitar: 'fetchGuitarById',
+  DeleteGuitar: 'deleteGuitar',
+  AddGuitar: 'addGuitar',
+  EditGuitar: 'editGuitar',
 } as const;
 
 export const ApiRoute = {

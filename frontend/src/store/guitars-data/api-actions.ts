@@ -2,11 +2,11 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { Guitars } from '../../types/guitar.type';
 import { AppDispatch, State } from '../../types/state.type';
 import { AxiosError, AxiosInstance } from 'axios';
-import { ActionName, ApiRoute, PaginationParam, ReducerName } from '../../utils/constant';
+import { ActionName, ApiErrosMessage, ApiRoute, DEFAULT_PAGE_SERVER, PaginationParam, ReducerName } from '../../utils/constant';
 import { toast } from 'react-toastify';
 import { AxiosErrorResponse } from '../../types/axios-error-response.type';
 
-export const fetchGuitars = createAsyncThunk<Guitars|void, number, {
+export const fetchGuitars = createAsyncThunk<Guitars|void, number|undefined, {
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;
@@ -14,7 +14,8 @@ export const fetchGuitars = createAsyncThunk<Guitars|void, number, {
   `${ReducerName.Guitars}/${ActionName.FetchGuitars}`,
   async (page, {extra: api}) => {
     try {
-      const {data} = await api.get<Guitars>(`${ApiRoute.GuitarList}?page=${page - PaginationParam.DefaultPage}`);
+      const serverPage = page ? page - PaginationParam.DefaultPage : DEFAULT_PAGE_SERVER;
+      const {data} = await api.get<Guitars>(`${ApiRoute.GuitarList}?page=${serverPage}`);
       return data;
     } catch(error) {
       const axiosError = error as AxiosError<AxiosErrorResponse>;
@@ -34,7 +35,7 @@ export const fetchPagesAmount = createAsyncThunk<number|void, undefined, {
       const {data} = await api.get<number>(ApiRoute.PagesAmount);
       return data;
     } catch {
-      toast.error('Can`t get pages data', {toastId:ActionName.FetchPagesAmount});
+      toast.error(ApiErrosMessage.FetchPagesError, {toastId:ActionName.FetchPagesAmount});
     }
   },
 );

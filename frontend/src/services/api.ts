@@ -2,7 +2,7 @@ import axios, {AxiosError, AxiosInstance, AxiosRequestConfig} from 'axios';
 import { getToken } from './token';
 import { StatusCodes } from 'http-status-codes';
 import {toast} from 'react-toastify';
-import { API_ERROR_MESSAGE, ApiConnectParam } from '../utils/constant';
+import { ApiConnectParam, ApiErrosMessage } from '../utils/constant';
 
 export const createAPI = (): AxiosInstance => {
   const api = axios.create({
@@ -27,7 +27,7 @@ export const createAPI = (): AxiosInstance => {
     (response) => response,
     (error:AxiosError<{error:string}>)=>{
       if (error.response?.status === StatusCodes.UNAUTHORIZED) {
-        toast.warn(API_ERROR_MESSAGE, {toastId: error.code});
+        toast.warn(ApiErrosMessage.Unauthorized, {toastId: error.code});
       }
       if (error.response?.status === StatusCodes.NOT_FOUND) {
         toast.error(error.response.data.error, {toastId:error.code});

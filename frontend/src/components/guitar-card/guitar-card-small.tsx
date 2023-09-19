@@ -2,6 +2,8 @@ import { Link } from 'react-router-dom';
 import { AppRoute, FormStatus } from '../../utils/constant';
 import { Guitar } from '../../types/guitar.type';
 import { formatDate } from '../../utils/helpers';
+import { useAppDispatch } from '../../hooks';
+import { deleteGuitar } from '../../store/guitar-data/api-actions';
 
 type GuitarCardSmallProps = {
   guitar: Guitar;
@@ -9,6 +11,10 @@ type GuitarCardSmallProps = {
 
 function GuitarCardSmall({guitar}:GuitarCardSmallProps): JSX.Element {
   const formattedDate = formatDate(guitar.createdDate);
+  const dispatch = useAppDispatch();
+  const handleDeleteClick = ()=>{
+    dispatch(deleteGuitar(guitar.id));
+  };
   return (
     <>
       <div className="catalog-item__data"><img src={guitar.photo} srcSet={guitar.photo} width="36" height="93" alt="Картинка гитары"/>
@@ -20,7 +26,7 @@ function GuitarCardSmall({guitar}:GuitarCardSmallProps): JSX.Element {
         </div>
       </div>
       <div className="catalog-item__buttons"><Link className="button button--small button--black-border" to={`${AppRoute.List}/${guitar.id}/${FormStatus.Edit}`} aria-label="Редактировать товар">Редактировать</Link>
-        <button className="button button--small button--black-border" type="submit" aria-label="Удалить товар">Удалить</button>
+        <button className="button button--small button--black-border" type="submit" aria-label="Удалить товар" onClick={handleDeleteClick}>Удалить</button>
       </div>
     </>
 
