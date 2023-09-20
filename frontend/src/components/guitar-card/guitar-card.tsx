@@ -7,7 +7,10 @@ type GuitarCardProps = {
 }
 
 function GuitarCard({guitar}:GuitarCardProps): JSX.Element {
+  const { name, description, photo, type, vendor, stringsAmount } = guitar;
+
   const [currentTab, setCurrentTab] = useState<string>(GuitarTab.Details);
+
   const getClassname = (tab:string)=>{
     const defaultClassname = 'button button--medium tabs__button';
     const inActiveClassName = ' button--black-border';
@@ -15,9 +18,9 @@ function GuitarCard({guitar}:GuitarCardProps): JSX.Element {
   };
   return (
     <div className="product-container">
-      <img className="product-container__img" src={guitar.photo} srcSet={guitar.photo} width="90" height="235" alt="" />
+      <img className="product-container__img" src={photo} srcSet={photo} width="90" height="235" alt="" />
       <div className="product-container__info-wrapper">
-        <h2 className="product-container__title title title--big title--uppercase">{guitar.name}</h2>
+        <h2 className="product-container__title title title--big title--uppercase">{name}</h2>
         <br />
         <br />
         <div className="tabs">
@@ -28,19 +31,19 @@ function GuitarCard({guitar}:GuitarCardProps): JSX.Element {
               <tbody>
                 <tr className="tabs__table-row">
                   <td className="tabs__title">Артикул:</td>
-                  <td className="tabs__value">{guitar.vendor}</td>
+                  <td className="tabs__value">{vendor}</td>
                 </tr>
                 <tr className="tabs__table-row">
                   <td className="tabs__title">Тип:</td>
-                  <td className="tabs__value">{guitar.type}</td>
+                  <td className="tabs__value">{type}</td>
                 </tr>
                 <tr className="tabs__table-row">
                   <td className="tabs__title">Количество струн:</td>
-                  <td className="tabs__value">{guitar.stringsAmount} струнная</td>
+                  <td className="tabs__value">{stringsAmount} струнная</td>
                 </tr>
               </tbody>
             </table>
-            <p className={currentTab === GuitarTab.Description ? 'tabs__product-description' : 'tabs__product-description hidden'}>{guitar.description}</p>
+            <p className={currentTab === GuitarTab.Description ? 'tabs__product-description' : 'tabs__product-description hidden'}>{description}</p>
           </div>
         </div>
       </div>

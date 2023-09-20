@@ -1,28 +1,12 @@
 export const DEFAULT_PAGE_SERVER = 0;
 
-export const UsernameLength = {
-  Min:1,
-  Max:15,
-};
+export const STRINGS_AMOUNTS = [4, 6, 7, 12];
 
-export const PasswordLength = {
-  Min:6,
-  Max:12,
-};
+export const VALID_MIMETYPES = ['jpeg','png'];
 
-export const GuitarNameLength = {
-  Min:10,
-  Max:100,
-};
+export const PRICE_FORMAT_PATTERN = /\B(?=(\d{3})+(?!\d))/g;
 
-export const DescriptionLength = {
-  Min:20,
-  Max:1024,
-};
-export const VendorLength = {
-  Min:5,
-  Max:40,
-};
+export const DATE_LOCALE = 'ru-RU';
 
 export const PriceLimit = {
   Min:100,
@@ -35,15 +19,36 @@ export const PaginationParam = {
   DefaultAmount: 3,
 };
 
-export const StringsAmounts = [4,6,7,12];
+export const FormFieldName = {
+  Type: 'item-type',
+  StringsAmount:'string-qty',
+  Date:'date',
+  Title : 'title',
+  Photo : 'photo',
+  Price:'price',
+  Vendor:'squ',
+  Description : 'description'
+} as const;
 
-export const ImageTypes = ['jpeg','png'];
+export const GuitarFilterLabel = {
+  Electric: 'Электрогитара',
+  Acoustic: 'Акустическая гитара',
+  Ukulele: 'Укулеле'
+} as const;
 
 export const AppRoute = {
   Login: '/',
   Register: '/register',
   List: '/guitar-list',
   Error: '*',
+} as const;
+
+export const QueryPathName = {
+  Page: 'page=',
+  SortBy: 'sortBy=',
+  SortDirection: 'sortDirection=',
+  Type: 'type=',
+  StringsAmount: 'stringsAmount=',
 } as const;
 
 export const FormStatus = {
@@ -86,7 +91,7 @@ export const ActionName = {
   FetchPagesAmount: 'fetchPagesAmount',
   FetchGuitar: 'fetchGuitarById',
   DeleteGuitar: 'deleteGuitar',
-  AddGuitar: 'addGuitar',
+  CreateGuitar: 'createGuitar',
   EditGuitar: 'editGuitar',
 } as const;
 
@@ -95,6 +100,7 @@ export const ApiRoute = {
   Register: '/users/register',
   GuitarList: '/guitars',
   PagesAmount: '/guitars/show-pages',
+  Photo: 'photo',
 } as const;
 
 export const ValidationPattern = {

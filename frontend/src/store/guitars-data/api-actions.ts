@@ -5,6 +5,7 @@ import { AxiosError, AxiosInstance } from 'axios';
 import { ActionName, ApiErrosMessage, ApiRoute, DEFAULT_PAGE_SERVER, PaginationParam, ReducerName } from '../../utils/constant';
 import { toast } from 'react-toastify';
 import { AxiosErrorResponse } from '../../types/axios-error-response.type';
+import { adaptGuitarsToClient } from '../../utils/adapters/adaptersToClient';
 
 export const fetchGuitars = createAsyncThunk<Guitars|void, number|undefined, {
   dispatch: AppDispatch;
@@ -16,7 +17,7 @@ export const fetchGuitars = createAsyncThunk<Guitars|void, number|undefined, {
     try {
       const serverPage = page ? page - PaginationParam.DefaultPage : DEFAULT_PAGE_SERVER;
       const {data} = await api.get<Guitars>(`${ApiRoute.GuitarList}?page=${serverPage}`);
-      return data;
+      return adaptGuitarsToClient(data);
     } catch(error) {
       const axiosError = error as AxiosError<AxiosErrorResponse>;
       toast.error(axiosError.response?.data.message, {toastId:ActionName.FetchGuitars});

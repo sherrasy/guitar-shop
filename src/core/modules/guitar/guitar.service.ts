@@ -4,8 +4,8 @@ import { GuitarServiceInterface } from './guitar-service.interface';
 import { EntityName } from '../../../utils/constant.js';
 import { LoggerInterface } from '../../../types/core/logger.interface';
 import { GuitarEntity } from './guitar.entity';
-import CreateGuitarDto from './dto/create-guitar.js';
-import UpdateGuitarDto from './dto/update-guitar.js';
+import CreateGuitarDto from './dto/create-guitar.dto.js';
+import UpdateGuitarDto from './dto/update-guitar.dto.js';
 import { DEFAULT_GUITARS_AMOUNT, DEFAULT_PAGE, DefaultSortParam } from './guitar.constant.js';
 import { LoggerInfoMessage } from '../../logger/logger.constant.js';
 import { AppComponent } from '../../../types/app-component.enum.js';
@@ -56,7 +56,7 @@ export default class GuitarService implements GuitarServiceInterface {
       filterParams.type = type.split(',');
     }
     if (stringsAmount) {
-      filterParams.stringsAmount = stringsAmount.toString().split(',').map(Number);
+      filterParams.stringsAmount = stringsAmount.split(',');
     }
     return this.guitarModel
       .find(filterParams)

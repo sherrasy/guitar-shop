@@ -9,9 +9,13 @@ import { AuthData } from '../../types/auth-data.type';
 import { redirectToRoute } from '../action';
 import CreateUserDto from '../../dto/user/create-user.dto';
 import { AxiosErrorResponse } from '../../types/axios-error-response.type';
+import { adaptUserToClient } from '../../utils/adapters/adaptersToClient';
+import UserDto from '../../dto/user/user.dto';
+import { User } from '../../types/user.type';
+import { adaptSignupToServer } from '../../utils/adapters/adaptersToServer';
 
 
-export const checkAuth = createAsyncThunk<UserData, undefined, {
+export const checkAuth = createAsyncThunk<User, undefined, {
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;
@@ -19,8 +23,8 @@ export const checkAuth = createAsyncThunk<UserData, undefined, {
   `${ReducerName.User}/${ActionName.CheckAuth}`,
   async (_arg, {extra: api}) => {
     try{
-      const {data} = await api.get<UserData>(ApiRoute.Login);
-      return data;
+      const {data} = await api.get<UserDto>(ApiRoute.Login);
+      return adaptUserToClient(data);
     }catch(error){
       const axiosError = error as AxiosError<AxiosErrorResponse>;
       toast.error(axiosError.response?.data.message, {toastId:ActionName.CheckAuth});
@@ -40,7 +44,8 @@ export const login = createAsyncThunk<UserData|void, AuthData, {
       const {data} = await api.post<UserData>(ApiRoute.Login, authData);
       saveToken(data.token);
       dispatch(redirectToRoute(AppRoute.List));
-      return data;}
+      return data;
+    }
     catch(error){
       const axiosError = error as AxiosError<AxiosErrorResponse>;
       toast.error(axiosError.response?.data.message, {toastId:ActionName.Login});
@@ -56,7 +61,7 @@ export const register = createAsyncThunk< void, CreateUserDto, {
   `${ReducerName.User}/${ActionName.Register}`,
   async (authData, { dispatch, extra: api}) => {
     try{
-      await api.post<CreateUserDto>(ApiRoute.Register, authData);
+      await api.post<CreateUserDto>(ApiRoute.Register, adaptSignupToServer(authData));
       dispatch(redirectToRoute(AppRoute.Login));
     }
     catch(error){

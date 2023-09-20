@@ -2,6 +2,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import { rootReducer } from './root-reducer';
 import { createAPI } from '../services/api';
 import { redirect } from './middlewares/redirect.middleware';
+import { checkAuth } from './user-data/api-actions';
 
 export const api = createAPI();
 
@@ -13,3 +14,5 @@ export const store = configureStore({
     }
   }).concat(redirect),
 });
+
+store.dispatch(checkAuth());

@@ -10,6 +10,8 @@ import { fetchGuitars, fetchPagesAmount } from '../../store/guitars-data/api-act
 import Loader from '../../components/loader/loader';
 import { useEffect, useState } from 'react';
 import Pagination from '../../components/pagination/pagination';
+import ListSorting from '../../components/list-sorting/list-sorting';
+import ListFilters from '../../components/list-filters/list-filters';
 
 function GuitarListPage(): JSX.Element {
   const navigate = useNavigate();
@@ -38,55 +40,8 @@ function GuitarListPage(): JSX.Element {
             <h1 className="product-list__title">Список товаров</h1>
             <Breadcrumbs/>
             <div className="catalog">
-              <form className="catalog-filter" action="#" method="post">
-                <h2 className="title title--bigger catalog-filter__title">Фильтр</h2>
-                <fieldset className="catalog-filter__block">
-                  <legend className="catalog-filter__block-title">Тип гитар</legend>
-                  <div className="form-checkbox catalog-filter__block-item">
-                    <input className="visually-hidden" type="checkbox" id="acoustic" name="acoustic"/>
-                    <label htmlFor="acoustic">Акустические гитары</label>
-                  </div>
-                  <div className="form-checkbox catalog-filter__block-item">
-                    <input className="visually-hidden" type="checkbox" id="electric" name="electric"/>
-                    <label htmlFor="electric">Электрогитары</label>
-                  </div>
-                  <div className="form-checkbox catalog-filter__block-item">
-                    <input className="visually-hidden" type="checkbox" id="ukulele" name="ukulele"/>
-                    <label htmlFor="ukulele">Укулеле</label>
-                  </div>
-                </fieldset>
-                <fieldset className="catalog-filter__block">
-                  <legend className="catalog-filter__block-title">Количество струн</legend>
-                  <div className="form-checkbox catalog-filter__block-item">
-                    <input className="visually-hidden" type="checkbox" id="4-strings" name="4-strings"/>
-                    <label htmlFor="4-strings">4</label>
-                  </div>
-                  <div className="form-checkbox catalog-filter__block-item">
-                    <input className="visually-hidden" type="checkbox" id="6-strings" name="6-strings"/>
-                    <label htmlFor="6-strings">6</label>
-                  </div>
-                  <div className="form-checkbox catalog-filter__block-item">
-                    <input className="visually-hidden" type="checkbox" id="7-strings" name="7-strings"/>
-                    <label htmlFor="7-strings">7</label>
-                  </div>
-                  <div className="form-checkbox catalog-filter__block-item">
-                    <input className="visually-hidden" type="checkbox" id="12-strings" name="12-strings" disabled/>
-                    <label htmlFor="12-strings">12</label>
-                  </div>
-                </fieldset>
-                <button className="catalog-filter__reset-btn button button--black-border button--medium" type="reset">Очистить</button>
-              </form>
-              <div className="catalog-sort">
-                <h2 className="catalog-sort__title">Сортировать:</h2>
-                <div className="catalog-sort__type">
-                  <button className="catalog-sort__type-button catalog-sort__type-button--active" aria-label="по цене">по дате</button>
-                  <button className="catalog-sort__type-button" aria-label="по цене">по цене</button>
-                </div>
-                <div className="catalog-sort__order">
-                  <button className="catalog-sort__order-button catalog-sort__order-button--up" aria-label="По возрастанию"></button>
-                  <button className="catalog-sort__order-button catalog-sort__order-button--down catalog-sort__order-button--active" aria-label="По убыванию"></button>
-                </div>
-              </div>
+              <ListFilters/>
+              <ListSorting/>
               <GuitarList guitars = {guitarsData}/>
             </div>
             <button className="button product-list__button button--red button--big" onClick={()=>navigate(`${AppRoute.List}/${FormStatus.Add}`)}>Добавить новый товар</button>

@@ -1,7 +1,7 @@
 import { DocumentType } from '@typegoose/typegoose';
 import { DocumentExistsInterface } from '../../../types/core/document-exists.interface.js';
-import CreateGuitarDto from './dto/create-guitar.js';
-import UpdateGuitarDto from './dto/update-guitar.js';
+import CreateGuitarDto from './dto/create-guitar.dto.js';
+import UpdateGuitarDto from './dto/update-guitar.dto.js';
 import { GuitarEntity } from './guitar.entity.js';
 import { GuitarQuery } from './query/guitar-query.js';
 

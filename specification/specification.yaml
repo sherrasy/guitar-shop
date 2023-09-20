@@ -415,8 +415,8 @@ components:
             example: photo-1.png
           type:
             type: string
-            enum: [электро, аккустика, укулеле]
-            example: электро
+            enum: [electric, аккустика, укулеле]
+            example: electric
           vendor:
             type: string
             example: hc9ixlypb2ega245cltesh

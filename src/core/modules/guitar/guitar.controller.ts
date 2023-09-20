@@ -8,8 +8,8 @@ import { ControllerRoute, EntityName, ObjectIdParam, PHOTO_RESOURSE_FIELD } from
 import { LoggerInfoMessage } from '../../logger/logger.constant.js';
 import { GuitarServiceInterface } from './guitar-service.interface.js';
 import GuitarRdo from './rdo/guitar.rdo.js';
-import UpdateGuitarDto from './dto/update-guitar.js';
-import CreateGuitarDto from './dto/create-guitar.js';
+import UpdateGuitarDto from './dto/update-guitar.dto.js';
+import CreateGuitarDto from './dto/create-guitar.dto.js';
 import { inject, injectable } from 'inversify';
 import { ValidateDTOMiddleware } from '../../middleware/validate-dto.middleware.js';
 import { ValidateObjectIdMiddleware } from '../../middleware/validate-objectId.middleware.js';

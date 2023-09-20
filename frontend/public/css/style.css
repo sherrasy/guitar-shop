@@ -3951,6 +3951,13 @@ button,
   row-gap: 15px;
 }
 
+.edit-item-image__label{
+  min-width: 100px;
+  min-height: 40px;
+  font-size: 11px;
+  letter-spacing: 0.02em;
+}
+
 .edit-item-image__btn {
   min-width: 100px;
   min-height: 40px;
@@ -3960,6 +3967,7 @@ button,
 
   letter-spacing: 0.02em;
 }
+
 
 .login {
   width: 551px;

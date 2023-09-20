@@ -19,7 +19,7 @@ Content-Type: application/json
 ### page=1
 ### sortBy=createdDate / price
 ### sortDirection=asc / desc
-### type=укулеле / укулеле,электро
+### type=ukulele / ukulele,electric
 ### stringsAmount=4 /4,6
 GET http://localhost:4000/guitars?stringsAmount=4 HTTP/1.1
 Content-Type: application/json
@@ -43,7 +43,7 @@ Authorization: Bearer {{authToken}}
     "name": "СURT Z30 Plus",
     "description": "Гитара подходит как для старта обучения, так и для домашних занятий или использования в полевых условиях, например, в походах или для проведения уличных выступлений. Доступная стоимость, качество и надежная конструкция, а также приятный внешний вид, который сделает вас звездой вечеринки.",
     "createdDate": "2023-09-17T13:33:53.580Z",
-    "type": "электро",
+    "type": "electric",
     "vendor": "SO754565",
     "price": 39319,
     "stringsAmount": 6

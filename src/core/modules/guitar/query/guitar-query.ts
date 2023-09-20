@@ -23,7 +23,7 @@ export class GuitarQuery {
   public type?: GuitarType;
 
   @IsOptional()
-  public stringsAmount?: number;
+  public stringsAmount?: string;
 
   @IsIn(['asc', 'desc'])
   @IsOptional()
