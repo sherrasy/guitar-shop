@@ -13,6 +13,7 @@ export const PriceLimit = {
   Max:1000000,
 };
 
+
 export const PaginationParam = {
   DefaultPage: 1,
   NextPage: 2,

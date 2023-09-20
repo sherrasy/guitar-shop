@@ -29,7 +29,6 @@ export const ErrorMessage = {
   Unauthorized:'User unauthorized',
   InvalidToken:'Invalid token',
   Undefined:'User undefined',
-  NoContent: 'No content'
 }as const;
 
 export const InfoMessage = {
@@ -58,7 +57,7 @@ export const EntityName = {
 } as const;
 
 export const AppPartName = {
-  App:'Application',
+  Main:'Application',
   Db:'Database',
   Server:'Server',
   Controller:'Controller',
@@ -78,8 +77,8 @@ export const ControllerRoute = {
 };
 
 export const ObjectIdParam = {
-  UserId:'userId',
-  GuitarId:'guitarId',
+  User:'userId',
+  Guitar:'guitarId',
 } as const;
 
 export const MiddlewareName = {

@@ -5,13 +5,13 @@ import { AppRoute, PaginationParam } from '../../utils/constant';
 
 type PaginationProps={
   currentPage:number;
-  handleChangePage:(page:number)=>void;
+  onChangePage:(page:number)=>void;
 }
 
-function Pagination({currentPage, handleChangePage}:PaginationProps): JSX.Element {
+function Pagination({currentPage, onChangePage}:PaginationProps): JSX.Element {
 
   const pagesAmount = useAppSelector(getPagesAmount);
-  const pageNumbers = pagesAmount ? Array.from({ length: pagesAmount }, (_value, key) => key + PaginationParam.DefaultPage)
+  const pageNumbers = pagesAmount ? Array.from({ length: pagesAmount }, (_, key) => key + PaginationParam.DefaultPage)
     : [PaginationParam.DefaultPage];
 
   const visiblePageNumbers = pageNumbers.slice(
@@ -23,25 +23,25 @@ function Pagination({currentPage, handleChangePage}:PaginationProps): JSX.Elemen
   const isNextVisible = visiblePageNumbers.length >= PaginationParam.DefaultAmount && currentPage !== lastPage;
   const isBackVisible = currentPage !== PaginationParam.DefaultPage;
 
-  const onPageClick = (page:number)=>{
-    handleChangePage(page);
+  const handlePageClick = (page:number)=>{
+    onChangePage(page);
   };
-  const onBackClick = ()=>{
+  const handleBackButtonClick = ()=>{
     const step = currentPage - PaginationParam.DefaultPage;
-    handleChangePage(step);
+    onChangePage(step);
   };
 
-  const onNextClick = ()=>{
+  const handleNextButtonClick = ()=>{
     const nextPage = currentPage + PaginationParam.DefaultPage;
     const step = nextPage < lastPage ? nextPage : lastPage;
-    handleChangePage(step);
+    onChangePage(step);
   };
   return (
     <div className="pagination product-list__pagination">
       <ul className="pagination__list">
         {isBackVisible && (
           <li className="pagination__page pagination__page--next" id="next">
-            <Link className="link pagination__page-link" to="#" onClick={onBackClick}>
+            <Link className="link pagination__page-link" to="#" onClick={handleBackButtonClick}>
               Назад
             </Link>
           </li>
@@ -55,7 +55,7 @@ function Pagination({currentPage, handleChangePage}:PaginationProps): JSX.Elemen
                 : 'pagination__page'
             }
           >
-            <Link className="link pagination__page-link" to={AppRoute.List} onClick={()=>onPageClick(item)}>
+            <Link className="link pagination__page-link" to={AppRoute.List} onClick={()=>handlePageClick(item)}>
               {item.toString()}
             </Link>
           </li>
@@ -63,7 +63,7 @@ function Pagination({currentPage, handleChangePage}:PaginationProps): JSX.Elemen
 
         {isNextVisible && (
           <li className="pagination__page pagination__page--next" id="next">
-            <Link className="link pagination__page-link" to="#" onClick={onNextClick}>
+            <Link className="link pagination__page-link" to="#" onClick={handleNextButtonClick}>
               Далее
             </Link>
           </li>

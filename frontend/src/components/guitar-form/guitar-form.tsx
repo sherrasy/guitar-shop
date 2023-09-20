@@ -32,7 +32,7 @@ function GuitarForm<T extends Guitar | NewGuitar>({
   const isNewGuitar = status === FormStatus.Add;
   const guitarTypes = getGuitarTypeWithName();
   const navigate = useNavigate();
-  const handleBackClick = () => navigate(AppRoute.List);
+  const handleBackButtonClick = () => navigate(AppRoute.List);
 
   return (
     <div>
@@ -162,14 +162,14 @@ function GuitarForm<T extends Guitar | NewGuitar>({
           <button
             className="button button--small add-item__form-button"
             type="submit"
-            onClick={handleBackClick}
+            disabled
           >
             Сохранить изменения
           </button>
           <button
             className="button button--small add-item__form-button"
             type="button"
-            onClick={handleBackClick}
+            onClick={handleBackButtonClick}
           >
             Вернуться к списку товаров
           </button>

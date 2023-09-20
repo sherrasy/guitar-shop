@@ -70,8 +70,8 @@ export default class GuitarController extends Controller {
       handler: this.showGuitar,
       middlewares:[
         new PrivateRouteMiddleware(),
-        new ValidateObjectIdMiddleware(ObjectIdParam.GuitarId),
-        new DocumentExistsMiddleware(this.guitarService, EntityName.Guitar, ObjectIdParam.GuitarId)
+        new ValidateObjectIdMiddleware(ObjectIdParam.Guitar),
+        new DocumentExistsMiddleware(this.guitarService, EntityName.Guitar, ObjectIdParam.Guitar)
       ]
     });
 
@@ -81,9 +81,9 @@ export default class GuitarController extends Controller {
       handler: this.update,
       middlewares:[
         new PrivateRouteMiddleware(),
-        new ValidateObjectIdMiddleware(ObjectIdParam.GuitarId),
+        new ValidateObjectIdMiddleware(ObjectIdParam.Guitar),
         new ValidateDTOMiddleware(UpdateGuitarDto),
-        new DocumentExistsMiddleware(this.guitarService, EntityName.Guitar, ObjectIdParam.GuitarId)
+        new DocumentExistsMiddleware(this.guitarService, EntityName.Guitar, ObjectIdParam.Guitar)
       ]
     });
 
@@ -93,8 +93,8 @@ export default class GuitarController extends Controller {
       handler: this.delete,
       middlewares:[
         new PrivateRouteMiddleware(),
-        new ValidateObjectIdMiddleware(ObjectIdParam.GuitarId),
-        new DocumentExistsMiddleware(this.guitarService, EntityName.Guitar, ObjectIdParam.GuitarId)
+        new ValidateObjectIdMiddleware(ObjectIdParam.Guitar),
+        new DocumentExistsMiddleware(this.guitarService, EntityName.Guitar, ObjectIdParam.Guitar)
       ]
     });
     this.addRoute({
@@ -102,7 +102,7 @@ export default class GuitarController extends Controller {
       method: HttpMethod.Post,
       handler: this.uploadPhoto,
       middlewares: [
-        new ValidateObjectIdMiddleware(ObjectIdParam.GuitarId),
+        new ValidateObjectIdMiddleware(ObjectIdParam.Guitar),
         new UploadFileMiddleware(this.configService.get('UPLOAD_DIRECTORY'), PHOTO_RESOURSE_FIELD),
       ]
     });

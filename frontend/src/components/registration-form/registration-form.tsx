@@ -16,9 +16,9 @@ function RegistrationForm(): JSX.Element {
   const [isPasswordShown, SetIsPasswordShown] = useState(false);
   const dispatch = useAppDispatch();
 
-  const onSubmit = (userData: UserRegister) => dispatch(register(userData));
+  const handleSubmitData = (userData: UserRegister) => dispatch(register(userData));
 
-  const handleClick = ()=> SetIsPasswordShown((prev)=> !prev);
+  const handleShowButtonClick = ()=> SetIsPasswordShown((prev)=> !prev);
 
   const checkEmail = ()=>{
     if(emailRef.current?.value === ''){
@@ -51,7 +51,7 @@ function RegistrationForm(): JSX.Element {
       const isPasswordValid = checkPassword() && checkValidity(passwordRef.current, ValidationPattern.Password);
       const isNameValid = checkName();
       if(isEmailValid && isPasswordValid && isNameValid){
-        onSubmit({
+        handleSubmitData({
           email: emailRef.current.value,
           password: passwordRef.current.value,
           name: nameRef.current.value,
@@ -107,7 +107,7 @@ function RegistrationForm(): JSX.Element {
                   ref={passwordRef}
                   required
                 />
-                <button className="input-login__button-eye" type="button" onClick={handleClick}>
+                <button className="input-login__button-eye" type="button" onClick={handleShowButtonClick}>
                   <svg width="14" height="8" aria-hidden="true">
                     <use xlinkHref="#icon-eye"></use>
                   </svg>

@@ -29,7 +29,7 @@ function GuitarListPage(): JSX.Element {
     return <Loader/>;
   }
 
-  const handleChangePage = (page:number)=>setCurrentPage(page);
+  const handlePageChange = (page:number)=>setCurrentPage(page);
 
   return (
     <>
@@ -45,7 +45,7 @@ function GuitarListPage(): JSX.Element {
               <GuitarList guitars = {guitarsData}/>
             </div>
             <button className="button product-list__button button--red button--big" onClick={()=>navigate(`${AppRoute.List}/${FormStatus.Add}`)}>Добавить новый товар</button>
-            <Pagination currentPage={currentPage} handleChangePage={handleChangePage}/>
+            <Pagination currentPage={currentPage} onChangePage={handlePageChange}/>
           </div>
         </section>
       </main>

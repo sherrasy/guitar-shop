@@ -16,7 +16,7 @@ function GuitarCardSmall({guitar}:GuitarCardSmallProps): JSX.Element {
   const pathGuitar = `${AppRoute.List}/${id}`;
   const pathEditGuitar = `${pathGuitar}/${FormStatus.Edit}`;
   const dispatch = useAppDispatch();
-  const handleDeleteClick = ()=>{
+  const handleDeleteButtonClick = ()=>{
     dispatch(deleteGuitar(id));
   };
   return (
@@ -30,7 +30,7 @@ function GuitarCardSmall({guitar}:GuitarCardSmallProps): JSX.Element {
         </div>
       </div>
       <div className="catalog-item__buttons"><Link className="button button--small button--black-border" to={pathEditGuitar} aria-label="Редактировать товар">Редактировать</Link>
-        <button className="button button--small button--black-border" type="submit" aria-label="Удалить товар" onClick={handleDeleteClick}>Удалить</button>
+        <button className="button button--small button--black-border" type="submit" aria-label="Удалить товар" onClick={handleDeleteButtonClick}>Удалить</button>
       </div>
     </>
 

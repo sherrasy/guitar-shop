@@ -6,19 +6,19 @@ import { GuitarType } from '../../types/guitar-type.enum';
 import { NewGuitar } from '../../types/guitar.type';
 import { FormStatus, PriceLimit, STRINGS_AMOUNTS } from '../../utils/constant';
 
-const EMPTY_GUITAR: NewGuitar = {
-  name: '',
-  description: '',
-  photo: '',
-  createdDate: new Date().toISOString() ,
-  type:GuitarType.Electric,
-  vendor:'',
-  price: PriceLimit.Min,
-  stringsAmount: STRINGS_AMOUNTS[0]
-};
-
 
 function AddGuitarPage(): JSX.Element {
+  const emptyGuitar: NewGuitar = {
+    name: '',
+    description: '',
+    photo: '',
+    createdDate: new Date().toISOString() ,
+    type:GuitarType.Electric,
+    vendor:'',
+    price: PriceLimit.Min,
+    stringsAmount: STRINGS_AMOUNTS[0]
+  };
+
   return (
     <>
       <Header />
@@ -27,7 +27,7 @@ function AddGuitarPage(): JSX.Element {
           <div className="container">
             <h1 className="add-item__title">Новый товар</h1>
             <Breadcrumbs/>
-            <GuitarForm guitar={EMPTY_GUITAR} status={FormStatus.Add} />
+            <GuitarForm guitar={emptyGuitar} status={FormStatus.Add} />
           </div>
         </section>
       </main>

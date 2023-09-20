@@ -18,9 +18,9 @@ function LoginForm(): JSX.Element {
 
   const dispatch = useAppDispatch();
 
-  const onSubmit = (authData: AuthData) => dispatch(login(authData));
+  const handleSubmitData = (authData: AuthData) => dispatch(login(authData));
 
-  const handleClick = ()=> SetIsPasswordShown((prev)=> !prev);
+  const handleShowButtonClick = ()=> SetIsPasswordShown((prev)=> !prev);
 
   const checkEmail = ()=>{
     if(emailRef.current?.value === ''){
@@ -45,7 +45,7 @@ function LoginForm(): JSX.Element {
       const isEmailValid = checkEmail() && checkValidity(emailRef.current, ValidationPattern.Email);
       const isPasswordValid = checkPassword() && checkValidity(passwordRef.current, ValidationPattern.Password);
       if (isEmailValid && isPasswordValid) {
-        onSubmit ({
+        handleSubmitData ({
           email: emailRef.current.value,
           password: passwordRef.current.value,
         });
@@ -95,7 +95,7 @@ function LoginForm(): JSX.Element {
                 onBlur={checkPassword}
                 required
               />
-              <button className="input-login__button-eye" type="button" onClick={handleClick}>
+              <button className="input-login__button-eye" type="button" onClick={handleShowButtonClick}>
                 <svg width="14" height="8" aria-hidden="true">
                   <use xlinkHref="#icon-eye"></use>
                 </svg>
