@@ -5,7 +5,6 @@ import { toast } from 'react-toastify';
 import { AppDispatch, State } from '../../types/state.type';
 import { UserData } from '../../types/user-data.type';
 import { ActionName, ApiRoute, AppRoute, ReducerName } from '../../utils/constant';
-import { AuthData } from '../../types/auth-data.type';
 import { redirectToRoute } from '../action';
 import CreateUserDto from '../../dto/user/create-user.dto';
 import { AxiosErrorResponse } from '../../types/axios-error-response.type';
@@ -13,6 +12,7 @@ import { adaptUserToClient } from '../../utils/adapters/adaptersToClient';
 import UserDto from '../../dto/user/user.dto';
 import { User } from '../../types/user.type';
 import { adaptSignupToServer } from '../../utils/adapters/adaptersToServer';
+import { AuthData } from '../../types/auth-data.type';
 
 
 export const checkAuth = createAsyncThunk<User, undefined, {
@@ -42,7 +42,8 @@ export const login = createAsyncThunk<UserData|void, AuthData, {
   async (authData, { dispatch, extra: api}) => {
     try{
       const {data} = await api.post<UserData>(ApiRoute.Login, authData);
-      saveToken(data.token);
+      const { token } = data;
+      saveToken(token);
       dispatch(redirectToRoute(AppRoute.List));
       return data;
     }

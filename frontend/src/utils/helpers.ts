@@ -1,3 +1,5 @@
+import { AxiosError } from 'axios';
+import { AxiosErrorResponse } from '../types/axios-error-response.type';
 import { GuitarType } from '../types/guitar-type.enum';
 import { DATE_LOCALE, GuitarFilterLabel, PRICE_FORMAT_PATTERN } from './constant';
 
@@ -16,3 +18,6 @@ export const getGuitarTypeWithName = ()=> Object.entries(GuitarType).map(([key,v
     name
   };
 });
+
+export const getValidationErrorMessages = (error:AxiosError<AxiosErrorResponse>) => error.response?.data.details.map((item)=> `${item.property}: ${item.messages[0]}`).join('\r\n');
+

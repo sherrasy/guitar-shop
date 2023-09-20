@@ -1,16 +1,15 @@
 import { useParams } from 'react-router-dom';
 import Breadcrumbs from '../../components/breadcrumbs/breadcrumbs';
 import Footer from '../../components/footer/footer';
-import GuitarForm from '../../components/forms/guitar-form';
 import Header from '../../components/header/header';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { getGuitar, getGuitarError, getGuitarStatus } from '../../store/guitar-data/selectors';
-import { editGuitar, fetchGuitarById } from '../../store/guitar-data/api-actions';
+import { fetchGuitarById } from '../../store/guitar-data/api-actions';
 import Loader from '../../components/loader/loader';
 import ErrorPage from '../error-page/error-page';
 import { useEffect } from 'react';
 import { FormStatus } from '../../utils/constant';
-import { Guitar } from '../../types/guitar.type';
+import GuitarForm from '../../components/guitar-form/guitar-form';
 
 function EditGuitarPage(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -33,10 +32,6 @@ function EditGuitarPage(): JSX.Element {
     return <ErrorPage/>;
   }
 
-  const handleFormSubmit = (data: Guitar) => {
-    dispatch(editGuitar(data));
-  };
-
   return (
     <>
       <Header />
@@ -45,7 +40,7 @@ function EditGuitarPage(): JSX.Element {
           <div className="container">
             <h1 className="edit-item__title">{guitar.name}</h1>
             <Breadcrumbs/>
-            <GuitarForm status={FormStatus.Edit} guitar={guitar} onSubmit={handleFormSubmit}/>
+            <GuitarForm status={FormStatus.Edit} guitar={guitar} />
           </div>
         </section>
       </main>

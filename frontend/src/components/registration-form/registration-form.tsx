@@ -1,10 +1,10 @@
 import {useRef, useState, FormEvent} from 'react';
-import InputErrorField from './input-error-field';
 import { useAppDispatch } from '../../hooks';
-import CreateUserDto from '../../dto/user/create-user.dto';
 import { register } from '../../store/user-data/api-actions';
 import { checkValidity } from '../../utils/helpers';
 import { ValidationPattern } from '../../utils/constant';
+import InputErrorField from '../input-error-field/input-error-field';
+import { UserRegister } from '../../types/user.type';
 
 function RegistrationForm(): JSX.Element {
   const emailRef = useRef<HTMLInputElement | null>(null);
@@ -16,7 +16,7 @@ function RegistrationForm(): JSX.Element {
   const [isPasswordShown, SetIsPasswordShown] = useState(false);
   const dispatch = useAppDispatch();
 
-  const onSubmit = (userData: CreateUserDto) => dispatch(register(userData));
+  const onSubmit = (userData: UserRegister) => dispatch(register(userData));
 
   const handleClick = ()=> SetIsPasswordShown((prev)=> !prev);
 

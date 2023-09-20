@@ -2,11 +2,11 @@ export const DEFAULT_PAGE_SERVER = 0;
 
 export const STRINGS_AMOUNTS = [4, 6, 7, 12];
 
-export const VALID_MIMETYPES = ['jpeg','png'];
-
 export const PRICE_FORMAT_PATTERN = /\B(?=(\d{3})+(?!\d))/g;
 
 export const DATE_LOCALE = 'ru-RU';
+
+export const VALIDATION_ERROR_NAME = 'VALIDATION_ERROR';
 
 export const PriceLimit = {
   Min:100,
@@ -20,13 +20,13 @@ export const PaginationParam = {
 };
 
 export const FormFieldName = {
-  Type: 'item-type',
-  StringsAmount:'string-qty',
-  Date:'date',
-  Title : 'title',
+  Type: 'type',
+  StringsAmount:'stringsAmount',
+  Date:'createdDate',
+  Title : 'name',
   Photo : 'photo',
   Price:'price',
-  Vendor:'squ',
+  Vendor:'vendor',
   Description : 'description'
 } as const;
 
@@ -41,14 +41,6 @@ export const AppRoute = {
   Register: '/register',
   List: '/guitar-list',
   Error: '*',
-} as const;
-
-export const QueryPathName = {
-  Page: 'page=',
-  SortBy: 'sortBy=',
-  SortDirection: 'sortDirection=',
-  Type: 'type=',
-  StringsAmount: 'stringsAmount=',
 } as const;
 
 export const FormStatus = {
@@ -93,6 +85,7 @@ export const ActionName = {
   DeleteGuitar: 'deleteGuitar',
   CreateGuitar: 'createGuitar',
   EditGuitar: 'editGuitar',
+  Redirect: 'app/redirectToRoute',
 } as const;
 
 export const ApiRoute = {

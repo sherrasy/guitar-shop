@@ -1,4 +1,3 @@
-
 export default class CreateUserDto {
   public email!: string;
 

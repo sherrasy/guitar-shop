@@ -1,11 +1,11 @@
 import {useRef, useState, FormEvent} from 'react';
 import { Link } from 'react-router-dom';
 import { AppRoute, ValidationPattern } from '../../utils/constant';
-import InputErrorField from './input-error-field';
 import { useAppDispatch } from '../../hooks';
 import { AuthData } from '../../types/auth-data.type';
 import { login } from '../../store/user-data/api-actions';
 import { checkValidity } from '../../utils/helpers';
+import InputErrorField from '../input-error-field/input-error-field';
 
 function LoginForm(): JSX.Element {
   const emailRef = useRef<HTMLInputElement | null>(null);

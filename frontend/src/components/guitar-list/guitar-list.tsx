@@ -1,5 +1,5 @@
 import { Guitars } from '../../types/guitar.type';
-import GuitarCardSmall from '../guitar-card/guitar-card-small';
+import GuitarCardSmall from '../guitar-card-small/guitar-card-small';
 
 type GuitarListProps = {
   guitars: Guitars;
