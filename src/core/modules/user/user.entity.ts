@@ -1,6 +1,7 @@
 import { User } from '../../../types/user.type';
 import typegoose, {getModelForClass, defaultClasses} from '@typegoose/typegoose';
 import { createSHA256 } from '../../helpers/common.js';
+import { CollectionName } from '../../../utils/constant.js';
 
 const {prop, modelOptions} = typegoose;
 
@@ -8,7 +9,7 @@ export interface UserEntity extends defaultClasses.Base {}
 
 @modelOptions({
   schemaOptions: {
-    collection: 'users'
+    collection: CollectionName.User
   }
 })
 export class UserEntity extends defaultClasses.TimeStamps implements User{

@@ -12,11 +12,11 @@ function RegistrationForm(): JSX.Element {
     email:'',
     password: ''
   };
+  const dispatch = useAppDispatch();
+  const errorMessage = 'Ошибка. Проверьте заполнение полей.';
   const [formData, setFormData] = useState(registrationDataDefault);
   const [isPasswordShown, SetIsPasswordShown] = useState(false);
   const [isErrorShown, SetIsErrorShown] = useState(false);
-  const errorMessage = 'Ошибка. Проверьте заполнение полей.';
-  const dispatch = useAppDispatch();
 
   const handleSubmitData = (userData: UserRegister) => dispatch(register(userData));
 

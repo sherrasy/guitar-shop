@@ -12,12 +12,11 @@ function LoginForm(): JSX.Element {
     email:'',
     password: ''
   };
+  const errorMessage = 'Возникла ошибка входа. Проверьте введенные данные и попробуйте снова';
+  const dispatch = useAppDispatch();
   const [formData, setFormData] = useState(loginDataDefault);
   const [isPasswordShown, SetIsPasswordShown] = useState(false);
   const [isErrorShown, SetIsErrorShown] = useState(false);
-  const errorMessage = 'Возникла ошибка входа. Проверьте введенные данные и попробуйте снова';
-
-  const dispatch = useAppDispatch();
 
   const handleSubmitData = (authData: AuthData) => dispatch(login(authData));
 

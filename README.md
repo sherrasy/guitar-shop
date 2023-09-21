@@ -106,7 +106,6 @@ npm start
 #### Backend
 
 ```bash
-npm run start
 npm run start:dev
 ```
 
@@ -115,6 +114,8 @@ npm run start:dev
 #### Frontend
 
 - `PORT=3000` - номер порта фронтенд;
+
+- `DISABLE_ESLINT_PLUGIN=true` - настройка для разработки;
 
 #### Backend
 

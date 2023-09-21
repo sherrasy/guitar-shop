@@ -16,6 +16,7 @@ function GuitarCard({guitar}:GuitarCardProps): JSX.Element {
     const inActiveClassName = ' button--black-border';
     return currentTab === tab ? defaultClassname : defaultClassname.concat(inActiveClassName);
   };
+
   return (
     <div className="product-container">
       <img className="product-container__img" src={photo} srcSet={photo} width="90" height="235" alt="" />

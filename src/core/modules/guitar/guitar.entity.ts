@@ -1,6 +1,6 @@
 import typegoose, {getModelForClass, defaultClasses} from '@typegoose/typegoose';
 import { GuitarType } from '../../../types/guitar-type.enum.js';
-import { DEFAULT_STATIC_IMAGES } from '../../../utils/constant.js';
+import { CollectionName, DEFAULT_STATIC_IMAGES } from '../../../utils/constant.js';
 import dayjs from 'dayjs';
 
 const { prop, modelOptions } = typegoose;
@@ -9,7 +9,7 @@ export interface GuitarEntity extends defaultClasses.Base { }
 
 @modelOptions({
   schemaOptions: {
-    collection: 'guitars',
+    collection: CollectionName.Guitar,
   },
 })
 export class GuitarEntity extends defaultClasses.TimeStamps {

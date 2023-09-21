@@ -98,10 +98,11 @@ export default class GuitarController extends Controller {
       ]
     });
     this.addRoute({
-      path: ControllerRoute.Guitar.concat('/', PHOTO_RESOURSE_FIELD),
+      path: `${ControllerRoute.Guitar}/${PHOTO_RESOURSE_FIELD}}`,
       method: HttpMethod.Post,
       handler: this.uploadPhoto,
       middlewares: [
+        new PrivateRouteMiddleware(),
         new ValidateObjectIdMiddleware(ObjectIdParam.Guitar),
         new UploadFileMiddleware(this.configService.get('UPLOAD_DIRECTORY'), PHOTO_RESOURSE_FIELD),
       ]

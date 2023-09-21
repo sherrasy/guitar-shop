@@ -9,7 +9,6 @@ type PaginationProps={
 }
 
 function Pagination({currentPage, onChangePage}:PaginationProps): JSX.Element {
-
   const pagesAmount = useAppSelector(getPagesAmount);
   const pageNumbers = pagesAmount ? Array.from({ length: pagesAmount }, (_, key) => key + PaginationParam.DefaultPage)
     : [PaginationParam.DefaultPage];

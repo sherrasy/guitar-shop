@@ -50,6 +50,11 @@ export const EntityName = {
   Guitar:'Guitar',
 } as const;
 
+export const CollectionName = {
+  User:'users',
+  Guitar:'guitars',
+} as const;
+
 export const AppPartName = {
   Main:'Application',
   Db:'Database',
