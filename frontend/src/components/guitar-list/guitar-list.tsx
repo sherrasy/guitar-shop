@@ -1,12 +1,19 @@
-import GuitarCardSmall from '../guitar-card/guitar-card-small';
+import { Guitars } from '../../types/guitar.type';
+import GuitarCardSmall from '../guitar-card-small/guitar-card-small';
 
-function GuitarList(): JSX.Element {
+type GuitarListProps = {
+  guitars: Guitars;
+};
+
+function GuitarList({ guitars }: GuitarListProps): JSX.Element {
   return (
     <div className="catalog-cards">
       <ul className="catalog-cards__list">
-        <li className="catalog-item">
-          <GuitarCardSmall/>
-        </li>
+        {guitars.map((guitar) => (
+          <li className="catalog-item" key={guitar.id}>
+            <GuitarCardSmall guitar={guitar} />
+          </li>
+        ))}
       </ul>
     </div>
   );

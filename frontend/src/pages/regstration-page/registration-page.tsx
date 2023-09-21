@@ -1,6 +1,6 @@
 import Footer from '../../components/footer/footer';
-import RegistrationForm from '../../components/forms/registration-form';
 import Header from '../../components/header/header';
+import RegistrationForm from '../../components/registration-form/registration-form';
 
 function RegistrationPage(): JSX.Element {
   return (

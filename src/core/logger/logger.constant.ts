@@ -10,9 +10,9 @@ export const LoggerInfoMessage = {
   NewRoute:'Route registered: ',
   RegisterRoute:'Register routes for ',
   RegisterFilter:'Register ExceptionFilter:',
-}as const;
+} as const;
 
 export const LoggerErrorMessage = {
   DbConnectFail: 'Failed to connect to the database. Attempt ',
   DbConnectMultipleFail: 'Unable to establish database connection.',
-}as const;
+} as const;

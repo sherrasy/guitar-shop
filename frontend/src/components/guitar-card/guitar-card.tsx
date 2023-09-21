@@ -1,25 +1,27 @@
+import { Guitar } from '../../types/guitar.type';
 import { GuitarTab } from '../../utils/constant';
 import { useState } from 'react';
 
-const mockGuitar = {
-  name: 'СURT Z30 Plus',
-  description: 'Гитара подходит как для старта обучения, так и для домашних занятий или использования в полевых условиях, например, в походах или для проведения уличных выступлений. Доступная стоимость, качество и надежная конструкция, а также приятный внешний вид, который сделает вас звездой вечеринки.',
-  stringsAmount: 6,
-  type: 'Электрогитара',
-  vendor: 'SO754565'
-};
+type GuitarCardProps = {
+  guitar:Guitar;
+}
 
-function GuitarCard(): JSX.Element {
+function GuitarCard({guitar}:GuitarCardProps): JSX.Element {
+  const { name, description, photo, type, vendor, stringsAmount } = guitar;
+
   const [currentTab, setCurrentTab] = useState<string>(GuitarTab.Details);
+
   const getClassname = (tab:string)=>{
     const defaultClassname = 'button button--medium tabs__button';
     const inActiveClassName = ' button--black-border';
     return currentTab === tab ? defaultClassname : defaultClassname.concat(inActiveClassName);
   };
+
   return (
-    <div className="product-container"><img className="product-container__img" src="img/content/catalog-product-1.png" srcSet="img/content/catalog-product-1@2x.png 2x" width="90" height="235" alt="" />
+    <div className="product-container">
+      <img className="product-container__img" src={photo} srcSet={photo} width="90" height="235" alt="" />
       <div className="product-container__info-wrapper">
-        <h2 className="product-container__title title title--big title--uppercase">{mockGuitar.name}</h2>
+        <h2 className="product-container__title title title--big title--uppercase">{name}</h2>
         <br />
         <br />
         <div className="tabs">
@@ -30,19 +32,19 @@ function GuitarCard(): JSX.Element {
               <tbody>
                 <tr className="tabs__table-row">
                   <td className="tabs__title">Артикул:</td>
-                  <td className="tabs__value">{mockGuitar.vendor}</td>
+                  <td className="tabs__value">{vendor}</td>
                 </tr>
                 <tr className="tabs__table-row">
                   <td className="tabs__title">Тип:</td>
-                  <td className="tabs__value">{mockGuitar.type}</td>
+                  <td className="tabs__value">{type}</td>
                 </tr>
                 <tr className="tabs__table-row">
                   <td className="tabs__title">Количество струн:</td>
-                  <td className="tabs__value">{mockGuitar.stringsAmount} струнная</td>
+                  <td className="tabs__value">{stringsAmount} струнная</td>
                 </tr>
               </tbody>
             </table>
-            <p className={currentTab === GuitarTab.Description ? 'tabs__product-description' : 'tabs__product-description hidden'}>{mockGuitar.description}</p>
+            <p className={currentTab === GuitarTab.Description ? 'tabs__product-description' : 'tabs__product-description hidden'}>{description}</p>
           </div>
         </div>
       </div>

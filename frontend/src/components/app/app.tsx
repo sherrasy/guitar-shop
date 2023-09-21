@@ -8,9 +8,17 @@ import GuitarListPage from '../../pages/guitar-list-page/guitar-list-page';
 import GuitarPage from '../../pages/guitar-page/guitar-page';
 import EditGuitarPage from '../../pages/edit-guitar-page/edit-guitar-page';
 import AddGuitarPage from '../../pages/add-guitar-page/add-guitar-page';
+import { useAppSelector } from '../../hooks';
+import { getAuthCheckedStatus } from '../../store/user-data/selectors';
+import Loader from '../loader/loader';
 
 function App(): JSX.Element {
-  const isAuthorized = true;
+  const isAuthChecked = useAppSelector(getAuthCheckedStatus);
+
+  if(!isAuthChecked){
+    return <Loader/>;
+  }
+
   return (
     <Routes>
       <Route path={AppRoute.Login} element={<LoginPage />} />
@@ -19,7 +27,7 @@ function App(): JSX.Element {
       <Route
         path={AppRoute.List}
         element={
-          <PrivateRoute isAuthorized={isAuthorized}>
+          <PrivateRoute>
             <GuitarListPage />
           </PrivateRoute>
         }
@@ -27,7 +35,7 @@ function App(): JSX.Element {
       <Route
         path={`${AppRoute.List}/:id`}
         element={
-          <PrivateRoute isAuthorized={isAuthorized}>
+          <PrivateRoute>
             <GuitarPage />
           </PrivateRoute>
         }
@@ -35,7 +43,7 @@ function App(): JSX.Element {
       <Route
         path={`${AppRoute.List}/:id/${FormStatus.Edit}`}
         element={
-          <PrivateRoute isAuthorized={isAuthorized}>
+          <PrivateRoute>
             <EditGuitarPage />
           </PrivateRoute>
         }
@@ -43,7 +51,7 @@ function App(): JSX.Element {
       <Route
         path={`${AppRoute.List}/${FormStatus.Add}`}
         element={
-          <PrivateRoute isAuthorized={isAuthorized}>
+          <PrivateRoute >
             <AddGuitarPage />
           </PrivateRoute>
         }

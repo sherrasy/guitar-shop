@@ -4,12 +4,12 @@ import { AppComponent } from '../../../types/app-component.enum.js';
 import { HttpMethod } from '../../../types/http-method.enum.js';
 import { LoggerInterface } from '../../../types/core/logger.interface';
 import { fillDTO } from '../../helpers/common.js';
-import { ControllerRoute, EntityName, ObjectIdParam, PhotoUploadParam } from '../../../utils/constant.js';
+import { ControllerRoute, EntityName, ObjectIdParam, PHOTO_RESOURSE_FIELD } from '../../../utils/constant.js';
 import { LoggerInfoMessage } from '../../logger/logger.constant.js';
 import { GuitarServiceInterface } from './guitar-service.interface.js';
 import GuitarRdo from './rdo/guitar.rdo.js';
-import UpdateGuitarDto from './dto/update-guitar.js';
-import CreateGuitarDto from './dto/create-guitar.js';
+import UpdateGuitarDto from './dto/update-guitar.dto.js';
+import CreateGuitarDto from './dto/create-guitar.dto.js';
 import { inject, injectable } from 'inversify';
 import { ValidateDTOMiddleware } from '../../middleware/validate-dto.middleware.js';
 import { ValidateObjectIdMiddleware } from '../../middleware/validate-objectId.middleware.js';
@@ -22,6 +22,8 @@ import { ConfigSchema } from '../../../types/core/config-schema.type.js';
 import { UploadFileMiddleware } from '../../middleware/upload-file.middleware.js';
 import UploadPhotoRdo from './rdo/upload-photo.rdo.js';
 import { GuitarQuery } from './query/guitar-query.js';
+import { DEFAULT_GUITARS_AMOUNT } from './guitar.constant.js';
+
 @injectable()
 export default class GuitarController extends Controller {
   private readonly name = 'GuitarController';
@@ -47,6 +49,12 @@ export default class GuitarController extends Controller {
     });
 
     this.addRoute({
+      path: ControllerRoute.GuitarsPagesAmount,
+      method: HttpMethod.Get,
+      handler: this.showPages,
+    });
+
+    this.addRoute({
       path: ControllerRoute.Main,
       method: HttpMethod.Post,
       handler: this.create,
@@ -62,8 +70,8 @@ export default class GuitarController extends Controller {
       handler: this.showGuitar,
       middlewares:[
         new PrivateRouteMiddleware(),
-        new ValidateObjectIdMiddleware(ObjectIdParam.GuitarId),
-        new DocumentExistsMiddleware(this.guitarService, EntityName.Guitar, ObjectIdParam.GuitarId)
+        new ValidateObjectIdMiddleware(ObjectIdParam.Guitar),
+        new DocumentExistsMiddleware(this.guitarService, EntityName.Guitar, ObjectIdParam.Guitar)
       ]
     });
 
@@ -73,9 +81,9 @@ export default class GuitarController extends Controller {
       handler: this.update,
       middlewares:[
         new PrivateRouteMiddleware(),
-        new ValidateObjectIdMiddleware(ObjectIdParam.GuitarId),
+        new ValidateObjectIdMiddleware(ObjectIdParam.Guitar),
         new ValidateDTOMiddleware(UpdateGuitarDto),
-        new DocumentExistsMiddleware(this.guitarService, EntityName.Guitar, ObjectIdParam.GuitarId)
+        new DocumentExistsMiddleware(this.guitarService, EntityName.Guitar, ObjectIdParam.Guitar)
       ]
     });
 
@@ -85,17 +93,18 @@ export default class GuitarController extends Controller {
       handler: this.delete,
       middlewares:[
         new PrivateRouteMiddleware(),
-        new ValidateObjectIdMiddleware(ObjectIdParam.GuitarId),
-        new DocumentExistsMiddleware(this.guitarService, EntityName.Guitar, ObjectIdParam.GuitarId)
+        new ValidateObjectIdMiddleware(ObjectIdParam.Guitar),
+        new DocumentExistsMiddleware(this.guitarService, EntityName.Guitar, ObjectIdParam.Guitar)
       ]
     });
     this.addRoute({
-      path: ControllerRoute.Guitar.concat('/', PhotoUploadParam.ResourseField),
+      path: `${ControllerRoute.Guitar}/${PHOTO_RESOURSE_FIELD}}`,
       method: HttpMethod.Post,
       handler: this.uploadPhoto,
       middlewares: [
-        new ValidateObjectIdMiddleware(ObjectIdParam.GuitarId),
-        new UploadFileMiddleware(this.configService.get('UPLOAD_DIRECTORY'), PhotoUploadParam.ResourseField),
+        new PrivateRouteMiddleware(),
+        new ValidateObjectIdMiddleware(ObjectIdParam.Guitar),
+        new UploadFileMiddleware(this.configService.get('UPLOAD_DIRECTORY'), PHOTO_RESOURSE_FIELD),
       ]
     });
   }
@@ -107,6 +116,15 @@ export default class GuitarController extends Controller {
     const guitars = await this.guitarService.find(req.query);
     const guitarsToResponse = fillDTO(GuitarRdo, guitars);
     this.ok(res, guitarsToResponse);
+  }
+
+  public async showPages(
+    _req: Request<UnknownRecord, UnknownRecord, UnknownRecord>,
+    res: Response
+  ): Promise<void> {
+    const guitars = await this.guitarService.findAll();
+    const pages = Math.ceil(guitars.length / DEFAULT_GUITARS_AMOUNT);
+    this.ok(res, pages);
   }
 
   public async create(

@@ -1,8 +1,6 @@
-export const DEFAULT_USER = {
-  name: 'admin',
-  email: 'admin@test.ru',
-  password: 'admin123'
-};
+export const PHOTO_RESOURSE_FIELD = 'photo';
+
+export const DEFAULT_STATIC_IMAGES = ['catalog-product-0.png','catalog-product-1.png','catalog-product-2.png','catalog-product-3.png','catalog-product-4.png','catalog-product-5.png','catalog-product-6.png','catalog-product-7.png','catalog-product-8.png','catalog-product-9.png'];
 
 export const VALID_MIMETYPES = ['jpeg','png'];
 
@@ -25,13 +23,12 @@ export const ErrorMessage = {
   Unauthorized:'User unauthorized',
   InvalidToken:'Invalid token',
   Undefined:'User undefined',
-  NoContent: 'No content'
-}as const;
+} as const;
 
 export const InfoMessage = {
   GenerateFile: 'File successfully generated: ',
   ImportData: 'Import completed. Rows amount: ',
-}as const;
+} as const;
 
 export const CommandName = {
   Help:'--help',
@@ -53,8 +50,13 @@ export const EntityName = {
   Guitar:'Guitar',
 } as const;
 
+export const CollectionName = {
+  User:'users',
+  Guitar:'guitars',
+} as const;
+
 export const AppPartName = {
-  App:'Application',
+  Main:'Application',
   Db:'Database',
   Server:'Server',
   Controller:'Controller',
@@ -65,6 +67,7 @@ export const AppPartName = {
 export const ControllerRoute = {
   Main:'/',
   GuitarsList:'/guitars',
+  GuitarsPagesAmount:'/show-pages',
   Guitar:'/:guitarId',
   UsersList: '/users',
   User:'/:userId',
@@ -73,8 +76,8 @@ export const ControllerRoute = {
 };
 
 export const ObjectIdParam = {
-  UserId:'userId',
-  GuitarId:'guitarId',
+  User:'userId',
+  Guitar:'guitarId',
 } as const;
 
 export const MiddlewareName = {
@@ -94,9 +97,3 @@ export const DirectoryPath = {
   Upload:'/upload',
   Static:'/static',
 } as const;
-
-export const PhotoUploadParam = {
-  ResourseField:'photo',
-  DefaultImage:'catalog-product-0.png',
-} as const;
-

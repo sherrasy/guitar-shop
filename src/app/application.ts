@@ -98,7 +98,7 @@ export default class Application {
   }
 
   public async init() {
-    this.logger.info(`${AppPartName.App} ${LoggerInfoMessage.Init}`);
+    this.logger.info(`${AppPartName.Main} ${LoggerInfoMessage.Init}`);
     this.logger.info(`Get value from env $PORT: ${this.config.get('PORT')}`);
     await this._initDb();
     await this._initMiddleware();

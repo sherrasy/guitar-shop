@@ -16,7 +16,7 @@ function Footer(): JSX.Element {
                     className="logo__img"
                     width="70"
                     height="70"
-                    src="./img/svg/logo.svg"
+                    src="/img/svg/logo.svg"
                     alt="Логотип"
                   />
                 </span>
@@ -26,7 +26,7 @@ function Footer(): JSX.Element {
                     className="logo__img"
                     width="70"
                     height="70"
-                    src="./img/svg/logo.svg"
+                    src="/img/svg/logo.svg"
                     alt="Логотип"
                   />
                 </Link>
@@ -103,27 +103,27 @@ function Footer(): JSX.Element {
               </h2>
               <ul className="footer__nav-list">
                 <li className="footer__nav-list-item">
-                  <Link className="link footer__nav-link" to="#top">
+                  <Link className="link footer__nav-link" to="#">
                     Где купить?
                   </Link>
                 </li>
                 <li className="footer__nav-list-item">
-                  <Link className="link footer__nav-link" to="#top">
+                  <Link className="link footer__nav-link" to="#">
                     Блог
                   </Link>
                 </li>
                 <li className="footer__nav-list-item">
-                  <Link className="link footer__nav-link" to="#top">
+                  <Link className="link footer__nav-link" to="#">
                     Вопрос - ответ
                   </Link>
                 </li>
                 <li className="footer__nav-list-item">
-                  <Link className="link footer__nav-link" to="#top">
+                  <Link className="link footer__nav-link" to="#">
                     Возврат
                   </Link>
                 </li>
                 <li className="footer__nav-list-item">
-                  <Link className="link footer__nav-link" to="#top">
+                  <Link className="link footer__nav-link" to="#">
                     Сервис-центры
                   </Link>
                 </li>

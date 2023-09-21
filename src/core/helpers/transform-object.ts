@@ -1,5 +1,5 @@
 import { UnknownRecord } from '../../types/unknown-record.type.js';
-import { PhotoUploadParam } from '../../utils/constant.js';
+import { DEFAULT_STATIC_IMAGES } from '../../utils/constant.js';
 
 function isObject(value: unknown) {
   return typeof value === 'object' && value !== null;
@@ -22,7 +22,7 @@ export function transformProperty(
 
 export function transformObject(property: string, staticPath: string, uploadPath: string, data:UnknownRecord) {
   return transformProperty(property, data, (target: UnknownRecord) => {
-    const rootPath = PhotoUploadParam.DefaultImage === target[property] as string ? staticPath : uploadPath;
+    const rootPath = DEFAULT_STATIC_IMAGES.includes(target[property] as string) ? staticPath : uploadPath;
     target[property] = `${rootPath}/${target[property]}`;
   });
 }
