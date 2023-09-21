@@ -13,22 +13,26 @@ export const PriceLimit = {
   Max:1000000,
 };
 
-
 export const PaginationParam = {
   DefaultPage: 1,
   NextPage: 2,
   DefaultAmount: 3,
 };
 
-export const FormFieldName = {
+export const GuitarFormFieldName = {
   Type: 'type',
   StringsAmount:'stringsAmount',
   Date:'createdDate',
   Title : 'name',
-  Photo : 'photo',
   Price:'price',
   Vendor:'vendor',
   Description : 'description'
+} as const;
+
+export const UserFormFieldName = {
+  Name:'name',
+  Email:'email',
+  Password:'password'
 } as const;
 
 export const GuitarFilterLabel = {
@@ -99,5 +103,6 @@ export const ApiRoute = {
 
 export const ValidationPattern = {
   Email: /^([a-z0-9_.-]+)@([\da-z.-]+).([a-z.]{2,6})$/,
-  Password: /([0-9].*[a-zA-Z])|([a-zA-Z].*[0-9])/,
+  Password: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,12}$/,
+  Name: /^[a-zA-Zа-яА-Я]{1,15}$/,
 } as const;

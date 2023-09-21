@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import { AppRoute, FormFieldName, FormStatus, STRINGS_AMOUNTS } from '../../utils/constant';
+import { AppRoute, GuitarFormFieldName, FormStatus, STRINGS_AMOUNTS } from '../../utils/constant';
 import { Guitar, NewGuitar } from '../../types/guitar.type';
 import {
   formatDateToLocale,
@@ -61,7 +61,7 @@ function GuitarForm<T extends Guitar | NewGuitar>({
                   type="radio"
                   id={item.type}
                   value={item.type}
-                  name={FormFieldName.Type}
+                  name={GuitarFormFieldName.Type}
                   defaultChecked={type === item.type}
                 />
                 <label htmlFor={item.type}>{item.name}</label>
@@ -75,7 +75,7 @@ function GuitarForm<T extends Guitar | NewGuitar>({
                 <input
                   type="radio"
                   id={`string-qty-${item}`}
-                  name={FormFieldName.StringsAmount}
+                  name={GuitarFormFieldName.StringsAmount}
                   value={item}
                   defaultChecked={item === stringsAmount}
                 />
@@ -90,7 +90,7 @@ function GuitarForm<T extends Guitar | NewGuitar>({
               <span>Дата добавления товара</span>
               <input
                 type="text"
-                name={FormFieldName.Date}
+                name={GuitarFormFieldName.Date}
                 defaultValue={formattedDate}
                 placeholder="Дата в формате 00.00.0000"
               />
@@ -106,7 +106,7 @@ function GuitarForm<T extends Guitar | NewGuitar>({
               </span>
               <input
                 type="text"
-                name={FormFieldName.Title}
+                name={GuitarFormFieldName.Title}
                 defaultValue={name}
                 placeholder="Наименование"
               />
@@ -120,7 +120,7 @@ function GuitarForm<T extends Guitar | NewGuitar>({
               </span>
               <input
                 type="text"
-                name={FormFieldName.Price}
+                name={GuitarFormFieldName.Price}
                 defaultValue={formattedPrice}
                 placeholder="Цена в формате 00 000"
               />
@@ -134,7 +134,7 @@ function GuitarForm<T extends Guitar | NewGuitar>({
               </span>
               <input
                 type="text"
-                name={FormFieldName.Vendor}
+                name={GuitarFormFieldName.Vendor}
                 defaultValue={vendor}
                 placeholder="Артикул товара"
               />
@@ -149,7 +149,7 @@ function GuitarForm<T extends Guitar | NewGuitar>({
                   : 'Описание товара'}
               </span>
               <textarea
-                name={FormFieldName.Description}
+                name={GuitarFormFieldName.Description}
                 placeholder=""
                 defaultValue={description}
               >

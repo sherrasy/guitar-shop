@@ -3,7 +3,7 @@ import { MockData } from '../../types/mock-data.type.js';
 import chalk from 'chalk';
 import { CliCommandInterface } from '../../types/core/cli-command.interface.js';
 import GuitarGenerator from '../modules/guitar-generator/guitar-generator.js';
-import { CommandName, DEFAULT_USER, ErrorMessage, InfoMessage } from '../../utils/constant.js';
+import { CommandName, ErrorMessage, InfoMessage } from '../../utils/constant.js';
 import TSVFileWriter from '../file-writer/tsv-file-writer.js';
 import TSVFileReader from '../file-reader/tsv-file-reader.js';
 import { createGuitar, getErrorMessage, getMongoURI } from '../helpers/index.js';
@@ -97,7 +97,12 @@ export default class GenerateCommand implements CliCommandInterface {
   }
 
   private async saveGuitar(guitar: Guitar) {
-    await this.userService.findOrCreate(DEFAULT_USER, this.salt);
+    const defaultUser = {
+      name: this.login,
+      email: `${this.login}@test.ru`,
+      password: `${this.login}123`
+    };
+    await this.userService.findOrCreate(defaultUser, this.salt);
     await this.guitarService.create(guitar);
   }
 

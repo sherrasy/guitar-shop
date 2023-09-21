@@ -1,6 +1,6 @@
-import {useRef, useState, FormEvent} from 'react';
+import { useState, FormEvent, ChangeEvent} from 'react';
 import { Link } from 'react-router-dom';
-import { AppRoute, ValidationPattern } from '../../utils/constant';
+import { AppRoute, UserFormFieldName, ValidationPattern } from '../../utils/constant';
 import { useAppDispatch } from '../../hooks';
 import { AuthData } from '../../types/auth-data.type';
 import { login } from '../../store/user-data/api-actions';
@@ -8,10 +8,11 @@ import { checkValidity } from '../../utils/helpers';
 import InputErrorField from '../input-error-field/input-error-field';
 
 function LoginForm(): JSX.Element {
-  const emailRef = useRef<HTMLInputElement | null>(null);
-  const passwordRef = useRef<HTMLInputElement | null>(null);
-  const [isEmailInvalid, SetIsEmailInvalid] = useState(false);
-  const [isPasswordInvalid, SetIsPasswordInvalid] = useState(false);
+  const loginDataDefault = {
+    email:'',
+    password: ''
+  };
+  const [formData, setFormData] = useState(loginDataDefault);
   const [isPasswordShown, SetIsPasswordShown] = useState(false);
   const [isErrorShown, SetIsErrorShown] = useState(false);
   const errorMessage = 'Возникла ошибка входа. Проверьте введенные данные и попробуйте снова';
@@ -22,39 +23,25 @@ function LoginForm(): JSX.Element {
 
   const handleShowButtonClick = ()=> SetIsPasswordShown((prev)=> !prev);
 
-  const checkEmail = ()=>{
-    if(emailRef.current?.value === ''){
-      SetIsEmailInvalid(true);
-      return false;
-    }
-    return true;
-  };
-
-  const checkPassword = ()=>{
-    if (passwordRef.current?.value === ''){
-      SetIsPasswordInvalid(true);
-      return false;
-    }
-    return true;
-
+  const handleInputChange = (
+    evt: ChangeEvent<HTMLInputElement>
+  ) => {
+    const { name, value } = evt.target;
+    setFormData({ ...formData, [name]: value });
   };
 
   const handleFormSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
-    if (emailRef.current && passwordRef.current ) {
-      const isEmailValid = checkEmail() && checkValidity(emailRef.current, ValidationPattern.Email);
-      const isPasswordValid = checkPassword() && checkValidity(passwordRef.current, ValidationPattern.Password);
-      if (isEmailValid && isPasswordValid) {
-        handleSubmitData ({
-          email: emailRef.current.value,
-          password: passwordRef.current.value,
-        });
-        SetIsErrorShown(false);
-      }else{
-        SetIsErrorShown(true);
-      }
+    const isEmailValid = checkValidity(formData.email, ValidationPattern.Email);
+    const isPasswordValid = checkValidity(formData.password, ValidationPattern.Password);
+    if(isEmailValid && isPasswordValid){
+      handleSubmitData(formData);
+      SetIsErrorShown(false);
+    }else{
+      SetIsErrorShown(true);
     }
   };
+
   return (
     <div className="container">
       <section className="login">
@@ -71,15 +58,13 @@ function LoginForm(): JSX.Element {
             <label htmlFor="email">Введите e-mail</label>
             <input
               type="email"
-              id="email"
-              name="email"
+              id={UserFormFieldName.Email}
+              name={UserFormFieldName.Email}
               autoComplete="off"
-              ref={emailRef}
-              onChange={()=>SetIsEmailInvalid(false)}
-              onBlur={checkEmail}
+              onChange={handleInputChange}
               required
             />
-            {isEmailInvalid && <InputErrorField/>}
+            {formData[UserFormFieldName.Email] === '' && <InputErrorField/>}
           </div>
           <div className="input-login">
             <label htmlFor="passwordLogin">Введите пароль</label>
@@ -87,12 +72,10 @@ function LoginForm(): JSX.Element {
               <input
                 type={isPasswordShown ? 'text' : 'password'}
                 placeholder="• • • • • • • • • • • •"
-                id="passwordLogin"
-                name="password"
+                id={UserFormFieldName.Password}
+                name={UserFormFieldName.Password}
                 autoComplete="off"
-                ref={passwordRef}
-                onChange={()=>SetIsPasswordInvalid(false)}
-                onBlur={checkPassword}
+                onChange={handleInputChange}
                 required
               />
               <button className="input-login__button-eye" type="button" onClick={handleShowButtonClick}>
@@ -101,7 +84,7 @@ function LoginForm(): JSX.Element {
                 </svg>
               </button>
             </span>
-            { isPasswordInvalid && <InputErrorField/>}
+            {formData[UserFormFieldName.Password] === '' && <InputErrorField/>}
           </div>
           <button
             className="button login__button button--medium"

@@ -1,62 +1,44 @@
-import {useRef, useState, FormEvent} from 'react';
+import {useState, FormEvent, ChangeEvent} from 'react';
 import { useAppDispatch } from '../../hooks';
 import { register } from '../../store/user-data/api-actions';
 import { checkValidity } from '../../utils/helpers';
-import { ValidationPattern } from '../../utils/constant';
+import { UserFormFieldName, ValidationPattern } from '../../utils/constant';
 import InputErrorField from '../input-error-field/input-error-field';
 import { UserRegister } from '../../types/user.type';
 
 function RegistrationForm(): JSX.Element {
-  const emailRef = useRef<HTMLInputElement | null>(null);
-  const passwordRef = useRef<HTMLInputElement | null>(null);
-  const nameRef = useRef<HTMLInputElement | null>(null);
-  const [isEmailInvalid, SetIsEmailInvalid] = useState(false);
-  const [isPasswordInvalid, SetIsPasswordInvalid] = useState(false);
-  const [isNameInvalid, SetIsNameInvalid] = useState(false);
+  const registrationDataDefault = {
+    name:'',
+    email:'',
+    password: ''
+  };
+  const [formData, setFormData] = useState(registrationDataDefault);
   const [isPasswordShown, SetIsPasswordShown] = useState(false);
+  const [isErrorShown, SetIsErrorShown] = useState(false);
+  const errorMessage = 'Ошибка. Проверьте заполнение полей.';
   const dispatch = useAppDispatch();
 
   const handleSubmitData = (userData: UserRegister) => dispatch(register(userData));
 
   const handleShowButtonClick = ()=> SetIsPasswordShown((prev)=> !prev);
 
-  const checkEmail = ()=>{
-    if(emailRef.current?.value === ''){
-      SetIsEmailInvalid(true);
-      return false;
-    }
-    return true;
-  };
-
-  const checkPassword = ()=>{
-    if (passwordRef.current?.value === ''){
-      SetIsPasswordInvalid(true);
-      return false;
-    }
-    return true;
-  };
-
-  const checkName = ()=>{
-    if(nameRef.current?.value === ''){
-      SetIsNameInvalid(true);
-      return false;
-    }
-    return true;
+  const handleInputChange = (
+    evt: ChangeEvent<HTMLInputElement>
+  ) => {
+    const { name, value } = evt.target;
+    setFormData({ ...formData, [name]: value });
   };
 
   const handleFormSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
-    if (emailRef.current && passwordRef.current && nameRef.current) {
-      const isEmailValid = checkEmail() && checkValidity(emailRef.current, ValidationPattern.Email);
-      const isPasswordValid = checkPassword() && checkValidity(passwordRef.current, ValidationPattern.Password);
-      const isNameValid = checkName();
-      if(isEmailValid && isPasswordValid && isNameValid){
-        handleSubmitData({
-          email: emailRef.current.value,
-          password: passwordRef.current.value,
-          name: nameRef.current.value,
-        });
-      }
+    const isEmailValid = checkValidity(formData.email, ValidationPattern.Email);
+    const isPasswordValid = checkValidity(formData.password, ValidationPattern.Password);
+    const isNameValid = checkValidity(formData.name, ValidationPattern.Name);
+    if(isEmailValid && isPasswordValid && isNameValid){
+      handleSubmitData(formData);
+      SetIsErrorShown(false);
+    }else{
+      SetIsErrorShown(true);
     }
   };
   return (
@@ -66,45 +48,39 @@ function RegistrationForm(): JSX.Element {
           <h1 className="login__title">Регистрация</h1>
           <form method="post" action="/" onSubmit={handleFormSubmit}>
             <div className="input-login">
-              <label htmlFor="name">Введите имя</label>
+              <label htmlFor={UserFormFieldName.Name}>Введите имя</label>
               <input
                 type="text"
-                id="name"
-                name="name"
+                id={UserFormFieldName.Name}
+                name={UserFormFieldName.Name}
                 autoComplete="off"
-                onChange={()=>SetIsNameInvalid(false)}
-                onBlur={checkName}
-                ref={nameRef}
+                onChange={handleInputChange}
                 required
               />
-              {isNameInvalid && <InputErrorField/>}
+              {formData[UserFormFieldName.Name] === '' && <InputErrorField/>}
             </div>
             <div className="input-login">
               <label htmlFor="email">Введите e-mail</label>
               <input
                 type="email"
-                id="email"
-                name="email"
+                id={UserFormFieldName.Email}
+                name={UserFormFieldName.Email}
                 autoComplete="off"
-                onChange={()=>SetIsEmailInvalid(false)}
-                onBlur={checkEmail}
-                ref={emailRef}
+                onChange={handleInputChange}
                 required
               />
-              {isEmailInvalid && <InputErrorField/>}
+              {formData[UserFormFieldName.Email] === '' && <InputErrorField/>}
             </div>
             <div className="input-login">
-              <label htmlFor="password">Придумайте пароль</label>
+              <label htmlFor={UserFormFieldName.Password}>Придумайте пароль</label>
               <span>
                 <input
                   type={isPasswordShown ? 'text' : 'password'}
                   placeholder="• • • • • • • • • • • •"
-                  id="password"
-                  name="password"
+                  id={UserFormFieldName.Password}
+                  name={UserFormFieldName.Password}
                   autoComplete="off"
-                  onChange={()=>SetIsPasswordInvalid(false)}
-                  onBlur={checkPassword}
-                  ref={passwordRef}
+                  onChange={handleInputChange}
                   required
                 />
                 <button className="input-login__button-eye" type="button" onClick={handleShowButtonClick}>
@@ -113,7 +89,7 @@ function RegistrationForm(): JSX.Element {
                   </svg>
                 </button>
               </span>
-              { isPasswordInvalid && <InputErrorField/>}
+              {formData[UserFormFieldName.Password] === '' && <InputErrorField/>}
             </div>
             <button
               className="button login__button button--medium"
@@ -122,6 +98,7 @@ function RegistrationForm(): JSX.Element {
               Зарегистрироваться
             </button>
           </form>
+          {isErrorShown && <p className="input-login__error">{errorMessage}</p>}
         </section>
       </div>
     </div>

@@ -3,7 +3,7 @@ import { AxiosErrorResponse } from '../types/axios-error-response.type';
 import { GuitarType } from '../types/guitar-type.enum';
 import { DATE_LOCALE, GuitarFilterLabel, PRICE_FORMAT_PATTERN } from './constant';
 
-export const checkValidity = (field: HTMLInputElement, pattern: RegExp) => field.value.match(pattern);
+export const checkValidity = (value: string, pattern: RegExp) => value !== '' && pattern.test(value);
 
 export const formatDateToLocale = (date:string) => new Date(date).toLocaleDateString(DATE_LOCALE);
 

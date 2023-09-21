@@ -7,7 +7,7 @@ import { PriceLimit } from '../guitar/guitar.constant.js';
 const WeekDay = {
   First:1,
   Last:7
-}as const;
+} as const;
 
 export default class GuitarGenerator implements GuitarGeneratorInterface {
   constructor(private readonly mockData:MockData){}
